@@ -1,4 +1,5 @@
-package az.devolopia.SpringJava20_Mubariz_Bayramov.config
+package az.devolopia.SpringJava20_Mubariz_Bayramov.exception
+
 ;
 
 

@@ -1,8 +1,6 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.controller;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -17,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import az.devolopia.SpringJava20_Mubariz_Bayramov.conf.MyException;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookEntity;
+
+import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookAdd;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookUpdate;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookListResponse;
@@ -35,14 +33,13 @@ public class BookController {
 	private BookService service;
 
 	@GetMapping
-	
 	public BookListResponse findAllBooks() {
+
 		return service.findAllBooks();
 	}
-
+	  
 	@GetMapping(path = "/search")
-	
-	public List<BookEntity> findAllBooksSearch(@RequestParam(name = "query") String query) {
+	public BookListResponse findAllBooksSearch(@RequestParam(name = "query") String query) {
 		return service.findAllBooksSearch(query);
 	}
 
@@ -61,41 +58,20 @@ public class BookController {
 	}
 
 	@GetMapping(path = "/{id}")
-	
 	public BookSingleResponse findById(@PathVariable Integer id) {
 		return service.findById(id);
 	}
 
 	@PutMapping
-	public void update(@Valid @RequestBody BookUpdate u, BindingResult br) throws Exception {
+	
+	public void update(@Valid @RequestBody BookUpdate u, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException("melumatlarin tamligi pozulub", br, "validation");
 
 		}
+		
 		service.update(u);
 
 	}
 
-	@GetMapping(path = "/demo/{name}/index/{index}")
-	
-	public BookListResponse demo(@PathVariable String name, @PathVariable Integer index) {
-		int[] massiv = { 1, 8 };
-
-		if (name.equals("Adil")) {
-
-			if (massiv.length <= index) {
-
-				throw new Exception("massiviin olmayan elementine muraciet olundu", null, "index-not-found");
-			} else {
-				System.out.println(massiv[index]);
-			}
-
-		}
-		System.out.println("her sey ok dir");
-
-		return service.findAllBooks();
-	}
-
 }
-
-

@@ -1,7 +1,4 @@
-package az.devolopia.SpringJava20_Mubariz_Bayramov.config;
-
-
-
+package az.devolopia.SpringJava20_Mubariz_Bayramov.exception;
 
 import org.springframework.validation.BindingResult;
 
@@ -12,8 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class MyException extends RuntimeException {
-	
-	private static final long serialVersionUID = 1L;
 	private BindingResult br;
 	private String type;
 	// private String operator;

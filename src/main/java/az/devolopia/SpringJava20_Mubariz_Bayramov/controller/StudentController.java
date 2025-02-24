@@ -1,5 +1,7 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import az.devolopia.SpringJava20_Mubariz_Bayramov.entity.StudentEntity;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.request.StudentAddRequest;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.request.StudentUpdateRequest;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.StudentAddResponse;
@@ -53,5 +57,25 @@ public class StudentController {
 	public void delete(@PathVariable Integer id) {
 		service.deleteStudent(id);
 	}
+	
+	
+	//tələbəni adına əsasən axtaran api
+	  @GetMapping("/search")
+	  public List<StudentEntity> searchStudents(@RequestParam String name) {
+	        return service.searchStudentsByName(name);
+	    }
+	  
+	  
+	 // tələbə redaktəsi
+	  @PutMapping("/{id}")
+	    public ResponseEntity<StudentEntity> updateStudent(@PathVariable Integer id, @RequestBody StudentEntity student) {
+	        StudentEntity updatedStudent = service.updateStudent(id, student);
+	        if (updatedStudent != null) {
+	            return ResponseEntity.ok(updatedStudent);
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }
+	    }
+	  
+	}
 
-}

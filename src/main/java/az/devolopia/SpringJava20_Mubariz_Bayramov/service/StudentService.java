@@ -2,6 +2,7 @@ package az.devolopia.SpringJava20_Mubariz_Bayramov.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,5 +108,22 @@ public class StudentService {
 				.orElseThrow(() -> new MyException("Student not found", null, "Not found"));
 		repository.deleteById(student.getId());
 	}
-
+	
+	// tələbəni adına əsasən axtaran metod
+	public List<StudentEntity> searchStudentsByName(String name) {
+        return repository.findByNameContainingIgnoreCase(name);
+    }
+	
+	// tələbə redaktəsi
+	public StudentEntity updateStudent(Integer id, StudentEntity updatedStudent) {
+        Optional<StudentEntity> existingStudent = repository.findById(id);
+        if (existingStudent.isPresent()) {
+            StudentEntity student = existingStudent.get();
+            student.setName(updatedStudent.getName());
+            student.setEmail(updatedStudent.getEmail());
+            return repository.save(student);
+        }
+        return null;
+    }
+	
 }

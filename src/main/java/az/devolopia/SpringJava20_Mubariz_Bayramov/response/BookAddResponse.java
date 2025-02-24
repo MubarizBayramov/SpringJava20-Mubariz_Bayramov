@@ -1,11 +1,18 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.response;
 
-
 import lombok.Data;
 
 @Data
-public class StudentSingleResponse {
+public class BookAddResponse {
 	private Integer id;
-	private String name;
-	private String surname;
+
+	public void setId(Object id2) {
+		
+	}
+
+	
+
+	
+
+
 }

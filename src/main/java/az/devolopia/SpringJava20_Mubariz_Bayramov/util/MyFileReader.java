@@ -6,7 +6,7 @@ import java.io.FileReader;
 
 import org.springframework.stereotype.Component;
 
-import az.developia.springjava20.exception.MyException;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
 
 @Component
 public class MyFileReader {

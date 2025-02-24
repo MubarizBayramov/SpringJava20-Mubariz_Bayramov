@@ -1,20 +1,20 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.repository;
 
 
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookEntity;
-
+import az.devolopia.SpringJava20_Mubariz_Bayramov.entity.BookEntity;
 
 public interface BookRepository extends JpaRepository<BookEntity, Integer> {
-// select * from books where name like %name%
-	// s,contains("php"); php
-	
+
 	List<BookEntity> findAllByNameContaining(String name);
+
+	// select * from books where limit 3,4
+	@Query(value = "select * from books limit ?1,?2", nativeQuery = true)
+	List<BookEntity> findPagination(Integer begin, Integer length);
 
 }
 

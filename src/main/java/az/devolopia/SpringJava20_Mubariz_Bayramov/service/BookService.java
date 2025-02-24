@@ -1,5 +1,4 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.service;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,16 +11,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import az.devolopia.SpringJava20_Mubariz_Bayramov.MyFileReader;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.entity.BookEntity;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookAdd;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookEntity;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookUpdate;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.repository.BookRepository;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookAddRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookUpdateRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookAddResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookListResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookSingleResponse;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.util.MyFileReader;
 
-// IOC
 @Service
 public class BookService {
 
@@ -34,53 +33,38 @@ public class BookService {
 	@Autowired
 	private ModelMapper mapper;
 
-	public BookListResponse findAllBooks() {
-		List<BookEntity> entities = repository.findAll();
-
-		List<BookSingleResponse> list = new ArrayList<BookSingleResponse>();
-
-		for (BookEntity en : entities) {
-			BookSingleResponse s = new BookSingleResponse();
-			mapper.map(en, s);
-			list.add(s);
-		}
-		BookListResponse resp = new BookListResponse();
-		resp.setBooks(list);
+	public BookAddResponse add(BookAddRequest req) {
+		BookEntity en = new BookEntity();
+		mapper.map(req, en);
+		repository.save(en);
+		BookAddResponse resp = new BookAddResponse();
+		resp.setId(en.getId());
 		return resp;
+
 	}
 
-	public BookListResponse findAllBooksSearch(String query) {
-		
+	public BookListResponse findAllSearch(String q) {
 		BookListResponse s = new BookListResponse();
-		List<BookEntity> filtered = repository.findAllByNameContaining(query);
+		List<BookEntity> filtered = repository.findAllByNameContaining(q);
 		List<BookSingleResponse> list = new ArrayList<BookSingleResponse>();
-		
-		
 
 		for (BookEntity en : filtered) {
-			
 			BookSingleResponse se = new BookSingleResponse();
 			mapper.map(en, se);
 			list.add(se);
 		}
-
-		
 		s.setBooks(list);
 		return s;
 	}
 
-
-	public Integer add(BookAdd book) {
-		BookEntity en = new BookEntity();
-		mapper.map(book, en);
-		repository.save(en);
-		return en.getId();
-
-	}
-
 	public void deleteById(Integer id) {
+		Optional<BookEntity> o = repository.findById(id);
 
-		repository.deleteById(id);
+		if (o.isPresent()) {
+			repository.deleteById(id);
+		} else {
+			throw new MyException("kitab taplmadi id=" + id, null, "id-not-found");
+		}
 	}
 
 	public BookSingleResponse findById(Integer id) {// 7
@@ -97,8 +81,7 @@ public class BookService {
 
 	}
 
-	
-	public void update(BookUpdate u) {
+	public void update(BookUpdateRequest u) throws Exception {
 
 		Integer id = u.getId();
 		Optional<BookEntity> byId = repository.findById(id);
@@ -125,7 +108,7 @@ public class BookService {
 
 		System.out.println("BookService def kons");
 
-		try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("files/input.txt"))) {
 
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -148,5 +131,19 @@ public class BookService {
 		BufferedReader br = new BufferedReader(new FileReader(""));
 		System.out.println(a / b);
 
+	}
+
+	public BookListResponse findPagination(Integer begin, Integer length) {
+		BookListResponse s = new BookListResponse();
+		List<BookEntity> filtered = repository.findPagination(begin, length);
+		List<BookSingleResponse> list = new ArrayList<BookSingleResponse>();
+
+		for (BookEntity en : filtered) {
+			BookSingleResponse se = new BookSingleResponse();
+			mapper.map(en, se);
+			list.add(se);
+		}
+		s.setBooks(list);
+		return s;
 	}
 }

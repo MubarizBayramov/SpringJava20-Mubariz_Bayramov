@@ -1,8 +1,8 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.controller;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,66 +12,83 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookAdd;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.BookUpdate;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookAddRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookUpdateRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookAddResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookListResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookSingleResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.service.BookService;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.util.Constants;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/books")
 public class BookController {
 
-	// dependency injection
 	@Autowired
 	private BookService service;
 
-	@GetMapping
-	public BookListResponse findAllBooks() {
-
-		return service.findAllBooks();
-	}
-	  
-	@GetMapping(path = "/search")
-	public BookListResponse findAllBooksSearch(@RequestParam(name = "query") String query) {
-		return service.findAllBooksSearch(query);
-	}
-
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public Integer add(@Valid @RequestBody BookAdd book, BindingResult br) {
+	@PreAuthorize(value = "hasAuthority('ROLE_ADD_BOOK')")
+	public ResponseEntity<BookAddResponse> add(@Valid @RequestBody BookAddRequest req, BindingResult br) {
 		if (br.hasErrors()) {
-			throw new MyException("melumatlarin tamligi pozulub", br, "validation");
+			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
 		}
-		return service.add(book);
+		BookAddResponse resp = new BookAddResponse();
+		service.add(req);
+		return new ResponseEntity<BookAddResponse>(resp, HttpStatus.CREATED);
+	}
+	///////////////
+
+	@GetMapping(path = "/search")
+	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
+	public ResponseEntity<BookListResponse> findAllSearch(@RequestParam(name = "query") String query) {
+
+		BookListResponse resp = service.findAllSearch(query);
+
+		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = "/{id}")
-	public void deleteById(@PathVariable Integer id) {
+	@PreAuthorize(value = "hasAuthority('ROLE_DELETE_BOOK')")
+	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
 		service.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping(path = "/{id}")
+	@PreAuthorize(value = "hasAuthority('ROLE_GET_BOOK')")
 	public BookSingleResponse findById(@PathVariable Integer id) {
 		return service.findById(id);
 	}
 
 	@PutMapping
-	
-	public void update(@Valid @RequestBody BookUpdate u, BindingResult br) {
+	public void update(@Valid @RequestBody BookUpdateRequest u, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException("melumatlarin tamligi pozulub", br, "validation");
 
 		}
-		
-		service.update(u);
 
+		try {
+			service.update(u);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
+
+	@GetMapping(path = "/begin/{begin}/length/{length}")
+	@PreAuthorize(value = "hasAuthority('ROLE_GET_BOOK')")
+
+	public ResponseEntity<BookListResponse> findPagination(@PathVariable Integer begin, @PathVariable Integer length) {
+		BookListResponse resp = service.findPagination(begin, length);
+
+		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
 	}
 
 }

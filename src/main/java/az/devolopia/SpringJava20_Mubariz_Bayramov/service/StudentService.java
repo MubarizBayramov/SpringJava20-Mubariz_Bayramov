@@ -2,14 +2,17 @@ package az.devolopia.SpringJava20_Mubariz_Bayramov.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import az.devolopia.SpringJava20_Mubariz_Bayramov.entity.StudentEntity;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.StudentAdd;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.StudentEntity;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.StudentUpdate;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.repository.StudentRepository;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.StudentAddRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.StudentUpdateRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.response.StudentAddResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.StudentListResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.StudentSingleResponse;
 
@@ -20,7 +23,14 @@ public class StudentService {
 	private StudentRepository repository;
 
 	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private AuthorityService authorityService;
+
+	@Autowired
 	private ModelMapper mapper;
+
 	public StudentListResponse getAll() {
 		List<StudentEntity> students = repository.findAll();
 		List<StudentSingleResponse> singleResponses = new ArrayList<StudentSingleResponse>();
@@ -32,30 +42,31 @@ public class StudentService {
 			singleResponses.add(sR);
 		}
 
-		
 		listResponse.setStudents(singleResponses);
 		return listResponse;
 	}
 
-	public void addStudent(StudentAdd student) {
+	public StudentAddResponse add(StudentAddRequest req) {
+
+		// check for user name exists
+		String username = req.getUsername();
+		userService.checkUsernameExists(username);
+
+		// add student data to students tables
 		StudentEntity entity = new StudentEntity();
-		mapper.map(student, entity);
+		mapper.map(req, entity);
+
 		repository.save(entity);
-	}
-	
-	
+		Integer studentId = entity.getId();
 
-	public StudentSingleResponse createStudent(StudentAdd student) {
-		StudentEntity newStudent = new StudentEntity();
-		mapper.map(student, newStudent);
-		repository.save(newStudent);
+		// add student data to users table
+		userService.addStudent(req, studentId);
 
-		StudentSingleResponse studentSingleResponse = new StudentSingleResponse();
-		studentSingleResponse.setId(newStudent.getId());
-		studentSingleResponse.setName(newStudent.getName());
-		studentSingleResponse.setSurname(newStudent.getSurname());
-		return studentSingleResponse;
-
+		// add student authorities to authorities table
+		authorityService.addStudentAuthorities(req);
+		StudentAddResponse resp = new StudentAddResponse();
+		resp.setId(entity.getId());
+		return resp;
 	}
 
 	public StudentListResponse getAllStudents() {
@@ -70,6 +81,7 @@ public class StudentService {
 		resp.setStudents(list);
 		return resp;
 	}
+
 	public StudentSingleResponse findStudentById(Integer id) {
 		StudentEntity student = repository.findById(id)
 				.orElseThrow(() -> new MyException("Student not found", null, "Not found"));
@@ -79,7 +91,7 @@ public class StudentService {
 		return resp;
 	}
 
-	public StudentSingleResponse updateStudent(StudentUpdate studentUpdate) {
+	public StudentSingleResponse updateStudent(StudentUpdateRequest studentUpdate) {
 		StudentEntity student = repository.findById(studentUpdate.getId())
 				.orElseThrow(() -> new MyException("Student not found", null, "Not found"));
 		mapper.map(studentUpdate, student);
@@ -97,9 +109,3 @@ public class StudentService {
 	}
 
 }
-	
-	
-	
-	
-	
-	

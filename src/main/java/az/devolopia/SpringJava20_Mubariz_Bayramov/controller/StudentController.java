@@ -1,6 +1,9 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.StudentAdd;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.StudentUpdate;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.StudentAddRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.StudentUpdateRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.response.StudentAddResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.StudentListResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.StudentSingleResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.service.StudentService;
-
 
 @RestController
 @RequestMapping(path = "/students")
@@ -30,19 +33,10 @@ public class StudentController {
 	}
 
 	@PostMapping
-	public void addStudent(@RequestBody StudentAdd student) {
-		service.addStudent(student);
-	}
- 
-
-	@PostMapping
-	public StudentSingleResponse create(@RequestBody StudentAdd add) {
-		return service.createStudent(add);
-	}
-
-	@GetMapping
-	public StudentListResponse findAllStudents() {
-		return service.getAllStudents();
+	@PreAuthorize(value = "hasAuthority('ROLE_ADD_STUDENT')")
+	public ResponseEntity<StudentAddResponse> add(@RequestBody StudentAddRequest add) {
+		StudentAddResponse resp = service.add(add);
+		return new ResponseEntity<StudentAddResponse>(resp, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{id}")
@@ -51,7 +45,7 @@ public class StudentController {
 	}
 
 	@PutMapping
-	public StudentSingleResponse update(@RequestBody StudentUpdate update) {
+	public StudentSingleResponse update(@RequestBody StudentUpdateRequest update) {
 		return service.updateStudent(update);
 	}
 

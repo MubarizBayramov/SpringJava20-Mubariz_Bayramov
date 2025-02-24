@@ -1,26 +1,23 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.handler;
-
-package az.developia.springjava20.handler;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-
 import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.ErrorResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.model.MyFieldError;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.response.MyErrorResponse;
 
 @RestControllerAdvice
 public class MyHandler {
 	@ExceptionHandler
-	public ErrorResponse handleMyException(MyException e) {
-		ErrorResponse resp = new ErrorResponse();
+	public MyErrorResponse handleMyException(MyException e) {
+		MyErrorResponse resp = new MyErrorResponse();
 		BindingResult br = e.getBr();
 		if (br != null) {
 			List<FieldError> fieldErrors = br.getFieldErrors();
@@ -41,4 +38,13 @@ public class MyHandler {
 
 	}
 
+	@ExceptionHandler
+	public MyErrorResponse handleAuthorizationDeniedException(AuthorizationDeniedException e) {
+		MyErrorResponse resp = new MyErrorResponse();
+
+		resp.setDate(LocalDateTime.now());
+		resp.setMessage(e.getMessage());
+		return resp;
+
+	}
 }

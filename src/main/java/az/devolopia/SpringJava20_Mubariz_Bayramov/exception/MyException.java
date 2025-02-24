@@ -11,11 +11,15 @@ import lombok.NoArgsConstructor;
 public class MyException extends RuntimeException {
 	private BindingResult br;
 	private String type;
-	// private String operator;
 
 	public MyException(String m, BindingResult br, String type) {
 		super(m);
 		this.br = br;
 		this.type = type;
+	}
+
+	public BindingResult getBr() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

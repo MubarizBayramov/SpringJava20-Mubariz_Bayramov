@@ -16,4 +16,12 @@ public class ErrorResponse {
 		
 		
 	}
+	public void setDate(LocalDateTime now) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setMessage(String message2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

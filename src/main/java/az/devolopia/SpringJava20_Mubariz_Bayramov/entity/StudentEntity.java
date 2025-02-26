@@ -1,4 +1,6 @@
+
 package az.devolopia.SpringJava20_Mubariz_Bayramov.entity;
+
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -31,7 +33,27 @@ public class StudentEntity {
 	private LocalDate birthday;
 
 	public Integer getId() {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+
+	public Object getName() {
+		
+		return null;
+	}
+
+	public void setName(Object name2) {
+		
+		
+	}
+
+	public Object getEmail() {
+	
+		return null;
+	}
+
+	public void setEmail(Object email) {
+		
+		
 	}
 }

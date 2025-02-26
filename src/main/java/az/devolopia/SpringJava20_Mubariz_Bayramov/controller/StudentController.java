@@ -33,11 +33,13 @@ public class StudentController {
 
 	@GetMapping
 	public StudentListResponse getAll() {
+
 		return service.getAll();
 	}
 
 	@PostMapping
 	@PreAuthorize(value = "hasAuthority('ROLE_ADD_STUDENT')")
+
 	public ResponseEntity<StudentAddResponse> add(@RequestBody StudentAddRequest add) {
 		StudentAddResponse resp = service.add(add);
 		return new ResponseEntity<StudentAddResponse>(resp, HttpStatus.CREATED);

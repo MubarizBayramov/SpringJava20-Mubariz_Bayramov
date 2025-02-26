@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.model.MyFieldError;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.MyErrorResponse;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.response.MyFieldError;
+
 
 @RestControllerAdvice
 public class MyHandler {

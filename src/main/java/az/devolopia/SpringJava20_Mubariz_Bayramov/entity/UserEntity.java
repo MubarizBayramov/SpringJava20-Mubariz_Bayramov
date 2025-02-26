@@ -1,3 +1,5 @@
+
+
 package az.devolopia.SpringJava20_Mubariz_Bayramov.entity;
 
 import java.time.LocalDateTime;

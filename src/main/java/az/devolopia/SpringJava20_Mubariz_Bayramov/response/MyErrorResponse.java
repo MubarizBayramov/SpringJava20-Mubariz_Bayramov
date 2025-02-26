@@ -18,7 +18,7 @@ public class MyErrorResponse {
 		// TODO Auto-generated method stub
 		
 	}
-	public void setValidations(List<az.devolopia.SpringJava20_Mubariz_Bayramov.model.MyFieldError> myList) {
+	public void setValidations(List<MyFieldError> myList) {
 		// TODO Auto-generated method stub
 		
 	}

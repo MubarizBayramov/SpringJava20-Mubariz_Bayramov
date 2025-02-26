@@ -1,5 +1,5 @@
-package az.devolopia.SpringJava20_Mubariz_Bayramov.util;
 
+package az.devolopia.SpringJava20_Mubariz_Bayramov.util;
 
 public class Constants {
 	public static final String VALIDATION_MESSAGE = "Məlumatların tamlığı pozuldu!";

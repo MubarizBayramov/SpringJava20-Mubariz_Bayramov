@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import az.devolopia.SpringJava20_Mubariz_Bayramov.MyFileReader;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.entity.BookEntity;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.repository.BookRepository;
@@ -20,6 +19,9 @@ import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookUpdateRequest;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookAddResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookListResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookSingleResponse;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.util.MyFileReader;
+
+
 
 @Service
 public class BookService {
@@ -86,6 +88,7 @@ public class BookService {
 		Integer id = u.getId();
 		Optional<BookEntity> byId = repository.findById(id);
 		if (!byId.isPresent()) {
+
 			String oxunan = fileReader.readFromFile("id-not-found.txt");
 
 			throw new MyException(oxunan, null, "id-not-found");

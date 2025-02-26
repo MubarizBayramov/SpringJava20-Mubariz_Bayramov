@@ -9,7 +9,6 @@ public class StudentListResponse {
 	private List<StudentSingleResponse> students;
 
 	public void setStudents(List<StudentSingleResponse> singleResponses) {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -33,6 +33,7 @@ public class BookController {
 
 	@PostMapping
 	@PreAuthorize(value = "hasAuthority('ROLE_ADD_BOOK')")
+
 	public ResponseEntity<BookAddResponse> add(@Valid @RequestBody BookAddRequest req, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
@@ -45,6 +46,7 @@ public class BookController {
 
 	@GetMapping(path = "/search")
 	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
+
 	public ResponseEntity<BookListResponse> findAllSearch(@RequestParam(name = "query") String query) {
 
 		BookListResponse resp = service.findAllSearch(query);
@@ -54,6 +56,7 @@ public class BookController {
 
 	@DeleteMapping(path = "/{id}")
 	@PreAuthorize(value = "hasAuthority('ROLE_DELETE_BOOK')")
+
 	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
@@ -61,6 +64,7 @@ public class BookController {
 
 	@GetMapping(path = "/{id}")
 	@PreAuthorize(value = "hasAuthority('ROLE_GET_BOOK')")
+
 	public BookSingleResponse findById(@PathVariable Integer id) {
 		return service.findById(id);
 	}

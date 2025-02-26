@@ -1,5 +1,5 @@
-package az.devolopia.SpringJava20_Mubariz_Bayramov.controller;
 
+package az.devolopia.SpringJava20_Mubariz_Bayramov.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

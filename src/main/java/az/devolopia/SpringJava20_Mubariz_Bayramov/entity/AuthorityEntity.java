@@ -1,5 +1,5 @@
-package az.devolopia.SpringJava20_Mubariz_Bayramov.entity;
 
+package az.devolopia.SpringJava20_Mubariz_Bayramov.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

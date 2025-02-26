@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.repository.AuthorityRepository;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.request.StudentAddRequest;
 
+
+
 @Service
 @Transactional
 public class AuthorityService {

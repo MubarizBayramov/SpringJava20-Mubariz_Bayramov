@@ -11,7 +11,7 @@ public class  SpringJava20MubarizBayramovApplication  {
         SpringApplication.run(SpringJava20MubarizBayramovApplication.class, args); 
 	
 }
-	
+
 }
 
 

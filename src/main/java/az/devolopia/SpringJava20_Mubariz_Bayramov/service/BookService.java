@@ -1,4 +1,5 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.service;
+import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -148,5 +149,10 @@ public class BookService {
 		}
 		s.setBooks(list);
 		return s;
+	}
+
+	public Book addBook(Book book) {
+		
+		return null;
 	}
 }

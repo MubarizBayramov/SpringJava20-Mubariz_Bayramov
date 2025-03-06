@@ -42,7 +42,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/users/seller").permitAll().anyRequest().authenticated())
+						.requestMatchers(HttpMethod.POST, "/users/librarian").permitAll().anyRequest().authenticated())
 				.httpBasic(Customizer.withDefaults())
 				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())); // Yeni sintaksis
 

@@ -9,8 +9,6 @@ public class LibrarianMubarizBayramovApplication {
 
 	public static void main(String[] args) {
 		
-		
-		
 		SpringApplication.run(LibrarianMubarizBayramovApplication.class, args);
 	}
 	

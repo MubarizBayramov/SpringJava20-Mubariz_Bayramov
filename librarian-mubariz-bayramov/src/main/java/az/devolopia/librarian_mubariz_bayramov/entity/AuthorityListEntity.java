@@ -1,7 +1,5 @@
 package az.devolopia.librarian_mubariz_bayramov.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,24 +14,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "librarians")
-public class LibrarianEntity {
-
+@Table(name = "authority_list")
+public class AuthorityListEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String name;
+	private String authority;
 
-	private String surname;
+	private Integer slibrarian;
 
-	private String phone;
-
-	
-
-	public Integer getId() {
-		
-		return null;
-	}
+	private Integer student;
 }
-

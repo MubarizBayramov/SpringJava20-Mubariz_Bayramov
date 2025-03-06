@@ -22,7 +22,7 @@ public class MyException extends RuntimeException {
 	}
 
 	public BindingResult getBr() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }

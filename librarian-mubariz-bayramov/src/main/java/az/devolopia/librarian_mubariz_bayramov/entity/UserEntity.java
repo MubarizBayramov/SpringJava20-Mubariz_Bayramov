@@ -1,10 +1,6 @@
 package az.devolopia.librarian_mubariz_bayramov.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,16 +16,28 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private String username;
 
-	private String name;
+	private String password;
 
-	private String surname;
+	private Integer userId;
 
-	private String phone;
+	private String type;
 
-	private LocalDate birthday;
+	private Boolean enabled;
 
+	public void setEnabled(boolean b) {
+		
+	}
+
+	public String getPassword() {
+		
+		return null;
+	}
+
+	public void setPassword(String string) {
+		
+		
+	}
 
 }

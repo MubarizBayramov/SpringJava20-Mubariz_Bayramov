@@ -1,13 +1,10 @@
 package az.devolopia.librarian_mubariz_bayramov.repository;
 
-
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import az.devolopia.librarian_mubariz_bayramov.util.Librarian;
+import az.devolopia.librarian_mubariz_bayramov.entity.LibrarianEntity;
 
 
-public interface LibrarianRepository extends JpaRepository<Librarian, Long> {
-    Optional<Librarian> findByUsername(String username);
+public interface LibrarianRepository extends JpaRepository<LibrarianEntity, Integer> {
+
 }

@@ -1,9 +1,14 @@
 package az.devolopia.librarian_mubariz_bayramov.response;
 
-public class LibrarianAddResponse {
 
-	public void setId(Integer id) {
+import lombok.Data;
+
+@Data
+public class LibrarianAddResponse {
+	private Integer id;
+
+	public void setId(Integer id2) {
+		// TODO Auto-generated method stub
 		
 	}
-
 }

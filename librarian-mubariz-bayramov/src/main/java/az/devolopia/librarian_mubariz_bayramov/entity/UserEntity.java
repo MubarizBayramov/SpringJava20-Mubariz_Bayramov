@@ -22,9 +22,11 @@ public class UserEntity {
 
 	private Integer userId;
 
-	private String type;
+	private String userType;
 
 	private Boolean enabled;
+
+
 
 	public void setEnabled(boolean b) {
 		
@@ -37,6 +39,16 @@ public class UserEntity {
 
 	public void setPassword(String string) {
 		
+		
+	}
+
+	public Integer getUserId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setUserType(String string) {
+		// TODO Auto-generated method stub
 		
 	}
 

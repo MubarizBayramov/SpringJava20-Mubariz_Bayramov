@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import az.devolopia.librarian_mubariz_bayramov.entity.AuthorityEntity;
 import jakarta.transaction.Transactional;
 
+
 @Transactional
 public interface AuthorityRepository extends JpaRepository<AuthorityEntity, Integer> {
 
@@ -18,7 +19,7 @@ public interface AuthorityRepository extends JpaRepository<AuthorityEntity, Inte
 	public void addAdminAuthorities(String username);
 
 	@Modifying
-	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where seller=1", nativeQuery = true)
-	public void addSellerAuthorities(String username);
+	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where Librarian=1", nativeQuery = true)
+	public void addLibrarianAuthorities(String username);
 
 }

@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import az.devolopia.librarian_mubariz_bayramov.entity.BookEntity;
 
 
-
 public interface BookRepository extends JpaRepository<BookEntity, Integer> {
 
 	List<BookEntity> findAllByNameContaining(String name);

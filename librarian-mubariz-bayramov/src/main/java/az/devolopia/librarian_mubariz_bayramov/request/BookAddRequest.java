@@ -44,4 +44,5 @@ public class BookAddRequest {
 
 	@Past(message = "nese")
 	private LocalDate publishDate;
+
 }

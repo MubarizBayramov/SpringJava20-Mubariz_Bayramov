@@ -24,14 +24,32 @@ public class BookEntity {
 	private Integer id;
 
 	private String name;
-	
+
+	private String description;
+
 	private BigDecimal price;
-	
+
+	private String author;
+
+	private String color;
+
+	private Integer pageCount;
 
 	private Integer quantity;
-	
-	
-	private String author;
-	
 
+	private Double weight;
+
+	private LocalDate publishDate;
+
+	private Integer LibrarianCode;
+
+	public void setLibrarianCode(Integer LibrarianCode2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

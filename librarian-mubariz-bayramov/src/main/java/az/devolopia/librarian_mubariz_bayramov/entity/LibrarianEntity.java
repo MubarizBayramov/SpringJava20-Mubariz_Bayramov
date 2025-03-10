@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,10 +30,10 @@ public class LibrarianEntity {
 
 	private String phone;
 
-	
+	private LocalDate birthday;
 
 	public Integer getId() {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

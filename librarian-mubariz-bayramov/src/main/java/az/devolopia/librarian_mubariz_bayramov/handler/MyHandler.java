@@ -10,7 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
+import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.response.MyErrorResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.MyFieldError;
 

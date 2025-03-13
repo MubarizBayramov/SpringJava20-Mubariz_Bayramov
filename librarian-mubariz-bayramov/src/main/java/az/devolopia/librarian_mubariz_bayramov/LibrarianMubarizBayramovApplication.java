@@ -2,7 +2,6 @@ package az.devolopia.librarian_mubariz_bayramov;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 public class LibrarianMubarizBayramovApplication {

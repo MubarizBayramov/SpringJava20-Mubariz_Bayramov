@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookAddResponse;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookListResponse;
-import az.devolopia.SpringJava20_Mubariz_Bayramov.response.BookSingleResponse;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.request.BookAddRequest;
 import az.devolopia.librarian_mubariz_bayramov.request.BookUpdateRequest;
+import az.devolopia.librarian_mubariz_bayramov.response.BookAddResponse;
+import az.devolopia.librarian_mubariz_bayramov.response.BookListResponse;
+import az.devolopia.librarian_mubariz_bayramov.response.BookSingleResponse;
 import az.devolopia.librarian_mubariz_bayramov.service.BookService;
 import az.devolopia.librarian_mubariz_bayramov.util.Constants;
 import jakarta.validation.Valid;

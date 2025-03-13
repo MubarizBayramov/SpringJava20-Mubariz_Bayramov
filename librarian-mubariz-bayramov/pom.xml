@@ -99,12 +99,7 @@
       <scope>runtime</scope>
     </dependency>
 
-
-      <dependency>
-      	<groupId>az.devolopia</groupId>
-      	<artifactId>SpringJava20-Mubariz_Bayramov</artifactId>
-      	<version>0.0.1-SNAPSHOT</version>
-      </dependency>
+ 
 	</dependencies>
 
 

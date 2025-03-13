@@ -23,4 +23,8 @@ insert into authorities (username,authority)
 select 'l2',authority from authority_list where librarian=1;
 
 
-
+insert into books
+(name,description,price,author,color,page_count,quantity,weight,publish_date,librarian_code) values
+('Java 21','James yazdi 21','60.5','Emin, Yusif','red',300,150,3,'2020-10-10',1),
+('Css3','James yazdi 21','60.5','Emin, Yusif','red',233,150,3,'2020-10-10',1),
+('Html 5','James yazdi 21','60.5','Emin, Yusif','red',676,150,3,'2020-10-10',2);

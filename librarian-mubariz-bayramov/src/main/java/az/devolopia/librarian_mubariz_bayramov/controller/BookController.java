@@ -55,6 +55,8 @@ public class BookController {
 	@DeleteMapping(path = "/{id}")
 	@PreAuthorize(value = "hasAuthority('ROLE_DELETE_BOOK')")
 	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
+		
+	
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}

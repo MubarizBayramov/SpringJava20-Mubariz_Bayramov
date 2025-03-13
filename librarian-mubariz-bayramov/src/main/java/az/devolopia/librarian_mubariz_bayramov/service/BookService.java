@@ -73,9 +73,23 @@ public class BookService {
 		Optional<BookEntity> o = repository.findById(id);
 
 		if (o.isPresent()) {
-			repository.deleteById(id);
+			 
+			String username = userService.findUsername();
+			UserEntity operator = userService.findByUsername(username);
+			Integer operatorLibrarianCode = operator.getUserId();
+
+			BookEntity bookEntity = o.get();
+			Integer bookLibrarianCode = bookEntity.getLibrarianCode();
+			if (operatorLibrarianCode == bookLibrarianCode) {
+				repository.deleteById(id);
+			} else {
+				throw new MyException("başqasının kitabıdır", null, "forbidden");
+			}
+			
+			
+			
 		} else {
-			throw new MyException("kitab taplmadi id=" + id, null, "id-not-found");
+			throw new MyException("kitab taplmadı id=" + id, null, "id-not-found");
 		}
 	}
 

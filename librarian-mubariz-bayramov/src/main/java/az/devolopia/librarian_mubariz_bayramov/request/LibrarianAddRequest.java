@@ -13,9 +13,5 @@ public class LibrarianAddRequest {
 	private String password;
 	private String phone;
 	private LocalDate birthday;
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

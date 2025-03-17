@@ -1,7 +1,6 @@
 package az.devolopia.librarian_mubariz_bayramov.request;
 
 import java.math.BigDecimal;
-
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotNull;
@@ -41,9 +40,9 @@ public class BookUpdateRequest {
 
 	private LocalDate publishDate;
 
-		public Integer getId() {
-		    return id;
-		}
+	public Integer getId() {
+	    return id;
+	}
 
 	}
 

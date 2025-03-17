@@ -2,12 +2,9 @@ package az.devolopia.librarian_mubariz_bayramov.exception;
 
 import org.springframework.validation.BindingResult;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import org.springframework.validation.BindingResult;
 
 @Getter
 @Setter

@@ -13,4 +13,10 @@ public class BookListResponse {
 	
 	private List<BookSingleResponse> books;
 
+	public void setBooks(List<BookSingleResponse> list) {
+		
+		
+	}
+
+	
 }

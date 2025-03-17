@@ -45,13 +45,17 @@ public class BookController {
 	
 	@GetMapping(path = "/search")
 	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
-	public ResponseEntity<BookListResponse> findAllSearch(@RequestParam(name = "query") String query) {
+	public ResponseEntity<BookListResponse> findAllSearch(
+	        @RequestParam(name = "query", required = false) String query,
+	        @RequestParam(name = "minPrice", required = false) Double minPrice,
+	        @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+	        @RequestParam(name = "author", required = false) String author) {
 
-		BookListResponse resp = service.findAllSearch(query);
-
-		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
+	    BookListResponse resp = service.findAllSearch(query, minPrice, maxPrice, author);
+	    return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 
+	
 	@DeleteMapping(path = "/{id}")
 	@PreAuthorize(value = "hasAuthority('ROLE_DELETE_BOOK')")
 	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
@@ -68,14 +72,15 @@ public class BookController {
 	}
 
 	@PutMapping
-	public void update(@Valid @RequestBody BookUpdateRequest u, BindingResult br) {
+	public ResponseEntity<?> update(@Valid @RequestBody BookUpdateRequest u, BindingResult br) {
 		if (br.hasErrors()) {
-			throw new MyException("melumatlarin tamligi pozulub", br, "validation");
+			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
 
 		}
 
 		service.update(u);
-
+     return ResponseEntity.ok().build();
+     
 	}
 
 	@GetMapping(path = "/begin/{begin}/length/{length}")

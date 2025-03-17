@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import az.devolopia.librarian_mubariz_bayramov.entity.UserEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.UserRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.LibrarianAddRequest;
 import az.devolopia.librarian_mubariz_bayramov.util.Constants;
-import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -44,8 +44,8 @@ public class UserService {
 	public Integer addLibrarian(LibrarianAddRequest req) {
 
 		// check user name existence
-		String username = req.getUsername();
-		checkUsernameExists(username);
+				String username = req.getUsername();
+				checkUsernameExists(username);
 
 		// add Librarians
 		Integer id = LibrarianService.add(req);
@@ -63,9 +63,8 @@ public class UserService {
 		repository.save(en);
 		
 		
-		// {bcrypt}hfghfhfhfghfghfgh
 		// add Librarian authorities
-		authorityService.addLibrarianAuthorities(username);
+		authorityService.addLibrarianAuthorities(findUsername());
 		return id;
 	}
 

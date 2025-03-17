@@ -54,20 +54,42 @@ public class BookService {
 
 	}
 
-	public BookListResponse findAllSearch(String q) {
-		BookListResponse s = new BookListResponse();
-		List<BookEntity> filtered = repository.findAllByNameContaining(q);
-		List<BookSingleResponse> list = new ArrayList<BookSingleResponse>();
+	public BookListResponse findAllSearch(String query, Double minPrice, Double maxPrice, String author) {
+	    String username = userService.findUsername();
+	    UserEntity operator = userService.findByUsername(username);
+	    Integer operatorLibrarianCode = operator.getUserId();
 
-		for (BookEntity en : filtered) {
-			BookSingleResponse se = new BookSingleResponse();
-			mapper.map(en, se);
-			list.add(se);
-		}
-		s.setBooks(list);
-		return s;
+	    List<BookEntity> filtered;
+	    
+	    if (query != null && !query.isEmpty()) {
+	        query = query.toLowerCase();
+	        filtered = repository.findMyBooksSearch(query, operatorLibrarianCode);
+	    } else if (minPrice != null && maxPrice != null) {
+	        filtered = repository.findBooksByPriceRange(minPrice, maxPrice, operatorLibrarianCode);
+	    } else if (author != null && !author.isEmpty()) {
+	        author = author.toLowerCase();
+	        filtered = repository.findBooksByAuthor(author, operatorLibrarianCode);
+	    } else {
+	        filtered = repository.findAllByLibrarianCode(operatorLibrarianCode);
+	    }
+
+	    BookListResponse response = new BookListResponse();
+	    List<BookSingleResponse> list = new ArrayList<>();
+	    
+	    for (BookEntity en : filtered) {
+	        BookSingleResponse se = new BookSingleResponse();
+	        mapper.map(en, se);
+	        list.add(se);
+	    }
+	    
+	    response.setBooks(list);
+	    return response;
 	}
 
+
+	
+
+	
 	public void deleteById(Integer id) {
 		Optional<BookEntity> o = repository.findById(id);
 
@@ -92,7 +114,7 @@ public class BookService {
 		}
 	}
 
-	public BookSingleResponse findById(Integer id) {// 7
+	public BookSingleResponse findById(Integer id) {
 		Optional<BookEntity> o = repository.findById(id);
 		BookEntity en = null;
 		if (o.isPresent()) {
@@ -107,39 +129,37 @@ public class BookService {
 	}
 
 	public void update(BookUpdateRequest u) {
-
+		
 		Integer id = u.getId();
+		
+		
 		Optional<BookEntity> byId = repository.findById(id);
 		if (!byId.isPresent()) {
 			String oxunan = fileReader.readFromFile("id-not-found.txt");
 
 			throw new MyException(oxunan, null, "id-not-found");
 		}
-		try {
-			/// gdfgdfg
-		} catch (Exception e) {
-			// TODO: handle exception
-		} finally {
-
-		}
+		
 		BookEntity en = byId.get();
+		
 		mapper.map(u, en);
-
-		repository.save(en);
-
+		
+		
+		String username = userService.findUsername();
+		UserEntity operator = userService.findByUsername(username);
+		Integer operatorLibrarianCode = operator.getUserId();
+		Integer LibrarianCode = en.getLibrarianCode();
+		if (LibrarianCode==operatorLibrarianCode) {
+			repository.save(en);
+		} else { 
+			throw new MyException("başqasının kitabını redaktə edə bilməzsiniz", null, "forbidden");
+		}
+		
 	}
 
-	public BookService() {
+	
 
-		System.out.println("BookService def kons");
-
-		 
-
-	}
-
-	public BookService(int g) {
-		System.out.println("BookService int kons");
-	}
+	
 
 	public void metod1() throws FileNotFoundException {
 		int a = 3;

@@ -14,7 +14,6 @@ import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.response.MyErrorResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.MyFieldError;
 
-
 @RestControllerAdvice
 public class MyHandler {
 	@ExceptionHandler

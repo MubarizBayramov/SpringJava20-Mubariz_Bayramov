@@ -1,6 +1,7 @@
 package az.devolopia.librarian_mubariz_bayramov.request;
 
 import java.math.BigDecimal;
+
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +17,8 @@ public class BookUpdateRequest {
 
 	@NotNull
 	@Positive
+	
+	
 	private Integer id;
 
 	private String name;
@@ -37,9 +41,10 @@ public class BookUpdateRequest {
 
 	private LocalDate publishDate;
 
-	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
+		public Integer getId() {
+		    return id;
+		}
+
 	}
 
-}
+	

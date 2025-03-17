@@ -6,15 +6,25 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import az.devolopia.librarian_mubariz_bayramov.entity.BookEntity;
-
+import az.devolopia.librarian_mubariz_bayramov.entity.LibrarianEntity;
 
 public interface BookRepository extends JpaRepository<BookEntity, Integer> {
+	
+	
 
-	List<BookEntity> findAllByNameContaining(String name);
+@Query(value = "SELECT * FROM books WHERE librarian_code = ?2 AND LOWER(name) LIKE %?1%", nativeQuery = true)
+List<BookEntity> findMyBooksSearch(String name, Integer librarianCode);
 
-	// select * from books where limit 3,4
-	@Query(value = "select * from books limit ?1,?2", nativeQuery = true)
-	List<BookEntity> findPagination(Integer begin, Integer length);
+@Query(value = "SELECT * FROM books WHERE librarian_code = ?2 AND price BETWEEN ?1 AND ?2", nativeQuery = true)
+List<BookEntity> findBooksByPriceRange(Double minPrice, Double maxPrice, Integer librarianCode);
+
+@Query(value = "SELECT * FROM books WHERE librarian_code = ?2 AND LOWER(author) LIKE %?1%", nativeQuery = true)
+List<BookEntity> findBooksByAuthor(String author, Integer librarianCode);
+
+@Query(value = "SELECT * FROM books WHERE librarian_code = ?1", nativeQuery = true)
+List<BookEntity> findAllByLibrarianCode(Integer librarianCode);
+@Query(value = "select * from books limit ?1,?2", nativeQuery = true)
+List<BookEntity> findPagination(Integer begin, Integer length);
 
 }
 

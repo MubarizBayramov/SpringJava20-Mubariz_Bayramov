@@ -40,9 +40,7 @@ public class BookUpdateRequest {
 
 	private LocalDate publishDate;
 
-	public Integer getId() {
-	    return id;
-	}
+	
 
 	}
 

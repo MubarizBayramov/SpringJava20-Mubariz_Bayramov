@@ -11,10 +11,10 @@ insert into users
 ('l1','{noop}1',1,1,'librarian'),
 ('l2','{noop}1',1,2,'librarian');
 
-insert into librarians
-(name,surname,phone,birthday) values
-('l1','Lib1','099','2021-02-05'),
-('l2','Lib2','098','2020-02-05');
+insert into librarians (name, surname, phone, birthday) 
+VALUES ('l1', 'Lib1', '099', '2021-02-05'),
+       ('l2', 'Lib2', '098', '2020-02-05');
+
 
 insert into authorities (username,authority)
 select 'l1',authority from authority_list where librarian=1;

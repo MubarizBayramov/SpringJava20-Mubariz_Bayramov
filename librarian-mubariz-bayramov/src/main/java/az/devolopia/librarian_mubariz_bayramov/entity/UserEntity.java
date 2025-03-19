@@ -27,29 +27,4 @@ public class UserEntity {
 	private Boolean enabled;
 
 
-
-	public void setEnabled(boolean b) {
-		
-	}
-
-	public String getPassword() {
-		
-		return null;
-	}
-
-	public void setPassword(String string) {
-		
-		
-	}
-
-	public Integer getUserId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setUserType(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -43,20 +43,5 @@ public class BookEntity {
 
 	private Integer LibrarianCode;
 
-	
 
-	public void setLibrarianCode(Integer LibrarianCode2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Object getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Integer getLibrarianCode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

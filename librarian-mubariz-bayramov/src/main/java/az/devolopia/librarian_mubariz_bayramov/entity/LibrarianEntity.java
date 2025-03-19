@@ -32,9 +32,6 @@ public class LibrarianEntity {
 
 	private LocalDate birthday;
 
-	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
 

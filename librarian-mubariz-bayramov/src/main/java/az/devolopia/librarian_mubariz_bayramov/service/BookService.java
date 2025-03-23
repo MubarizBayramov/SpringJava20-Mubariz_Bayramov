@@ -18,6 +18,7 @@ import az.devolopia.librarian_mubariz_bayramov.entity.UserEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.BookRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.BookAddRequest;
+import az.devolopia.librarian_mubariz_bayramov.request.BookFilterRequest;
 import az.devolopia.librarian_mubariz_bayramov.request.BookUpdateRequest;
 import az.devolopia.librarian_mubariz_bayramov.response.BookAddResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.BookListResponse;
@@ -161,7 +162,7 @@ public class BookService {
 
 	
 
-	public void metod1() throws FileNotFoundException {
+	public void metod() throws FileNotFoundException {
 		int a = 3;
 		int b = 0;
 		BufferedReader br = new BufferedReader(new FileReader(""));
@@ -182,5 +183,38 @@ public class BookService {
 		s.setBooks(list);
 		return s;
 	}
+	
+	
+	public BookListResponse findAllSearchFilter(BookFilterRequest r) {
+
+	    String username = userService.findUsername();
+	    UserEntity operator = userService.findByUsername(username);
+	    Integer operatorLibrarianCode = operator.getUserId();
+
+	    BookListResponse s = new BookListResponse();
+
+	    Long count = repository.findMyBooksSearchFilterCheck(operatorLibrarianCode, r.getName(), r.getId(), r.getPriceMin(),
+	            r.getPriceMax(), r.getPageCount(), r.getPublishDate(), r.getAuthor(), r.getColor());
+
+	    if (count > 3) {
+	        throw new MyException("Axtarışı dəqiqləşdirin, tapılan məlumat sayı = " + count + ", maksimum 3 ola bilər",
+	                null, "data-too-long");
+	    }
+
+	    List<BookEntity> filtered = repository.findMyBooksSearchFilter(operatorLibrarianCode, r.getName(), r.getId(),
+	            r.getPriceMin(), r.getPriceMax(), r.getPageCount(), r.getPublishDate(), r.getAuthor(), r.getColor());
+
+	    List<BookSingleResponse> list = new ArrayList<>();
+
+	    for (BookEntity en : filtered) {
+	        BookSingleResponse se = new BookSingleResponse();
+	        mapper.map(en, se);
+	        list.add(se);
+	    }
+	    s.setBooks(list);
+	    return s;
+	}
+
+	
 }
 

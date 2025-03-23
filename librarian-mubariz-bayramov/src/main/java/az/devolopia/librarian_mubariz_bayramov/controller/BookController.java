@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.request.BookAddRequest;
+import az.devolopia.librarian_mubariz_bayramov.request.BookFilterRequest;
 import az.devolopia.librarian_mubariz_bayramov.request.BookUpdateRequest;
 import az.devolopia.librarian_mubariz_bayramov.response.BookAddResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.BookListResponse;
@@ -91,6 +91,16 @@ public class BookController {
 
 		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
 	}
+	
+	@PostMapping(path = "/filter")
+	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
+	public ResponseEntity<BookListResponse> findAllSearchFilter(@RequestBody BookFilterRequest req) {
+
+		BookListResponse resp = service.findAllSearchFilter(req);
+
+		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
+	}
+
 
 }
 	

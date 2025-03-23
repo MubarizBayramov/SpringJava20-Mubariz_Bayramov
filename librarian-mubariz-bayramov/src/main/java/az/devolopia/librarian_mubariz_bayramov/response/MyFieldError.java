@@ -10,12 +10,5 @@ import lombok.NoArgsConstructor;
 public class MyFieldError {
 	private String field;
 	private String message;
-	public void setField(String field2) {
-		
-		
-	}
-	public void setMessage(String defaultMessage) {
-		
-		
-	}
+	
 }

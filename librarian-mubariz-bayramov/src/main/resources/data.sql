@@ -8,8 +8,8 @@ insert into authority_list
 ('ROLE_SEARCH_BOOK',1,0);
 insert into users
 (username,password,enabled,user_id,user_type) values
-('l1','{noop}1',1,1,'librarian'),
-('l2','{noop}1',1,2,'librarian');
+('l1','{noop}123',1,1,'librarian'),
+('l2','{noop}1234',1,2,'librarian');
 
 insert into librarians (name, surname, phone, birthday) 
 VALUES ('l1', 'Lib1', '099', '2021-02-05'),
@@ -23,11 +23,18 @@ insert into authorities (username,authority)
 select 'l2',authority from authority_list where librarian=1;
 
 
-insert into books
-(name,description,price,author,color,page_count,quantity,weight,publish_date,librarian_code) values
-('Java 21','James yazdi 21','60.5','Emin, Yusif','red',300,150,3,'2020-10-10',1),
-('Css3','James yazdi 21','60.5','Emin, Yusif','red',233,150,3,'2020-10-10',1),
-('Html 5','James yazdi 21','60.5','Emin, Yusif','red',676,150,3,'2020-10-10',2),
-('Python','James yazdi 21','60.5','Emin, Yusif','red',676,150,3,'2020-10-10',2),
-('Docker','James yazdi 21','60.5','Emin, Yusif','red',676,150,3,'2020-10-10',2),
-('Kubernetes','James yazdi 21','60.5','Emin, Yusif','red',676,150,3,'2020-10-10',2);
+INSERT INTO books
+(name, description, price, author, color, page_count, quantity, weight, publish_date, librarian_code) 
+VALUES
+('Java 21', 'James yazdı 21', 60.5, 'Emin, Yusif', 'red', 300, 150, 3, '2020-10-10', 1),
+('CSS3', 'James yazdı 21', 60.5, 'Emin, Yusif', 'red', 233, 150, 3, '2020-10-10', 1),
+('HTML 5', 'James yazdı 21', 60.5, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 2),
+('Python', 'James yazdı 21', 60.5, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 2),
+('Docker', 'James yazdı 21', 60.5, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 2),
+('Kubernetes', 'James yazdı 21', 60.5, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 2),
+('Java 21', 'James yazdı 21', 23, 'Emin, Yusif', 'red', 300, 150, 3, '2020-10-10', 1),
+('CSS3', 'James yazdı 21', 45, 'Emin, Yusif', 'red', 233, 150, 3, '2020-10-10', 1),
+('HTML 5', 'James yazdı 21', 47, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1),
+('Python', 'James yazdı 21', 57, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1),
+('Docker', 'James yazdı 21', 88, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1),
+('Kubernetes', 'James yazdı 21', 99, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1);

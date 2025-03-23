@@ -25,5 +25,16 @@ List<BookEntity> findAllByLibrarianCode(Integer librarianCode);
 @Query(value = "select * from books limit ?1,?2", nativeQuery = true)
 List<BookEntity> findPagination(Integer begin, Integer length);
 
+
+@Query(value = "SELECT COUNT(*) FROM books WHERE librarian_code=?1 AND LOWER(name) LIKE %?2% AND id LIKE %?3% AND (price BETWEEN ?4 AND ?5) AND page_count=?6 AND publish_date LIKE %?7% AND LOWER(author) LIKE %?8% AND LOWER(color) LIKE %?9%", nativeQuery = true)
+Long findMyBooksSearchFilterCheck(Integer librarianCode, String name, String id, Double priceMin, Double priceMax, Integer pageCount,
+        String publishDate, String author, String color);
+
+@Query(value = "SELECT * FROM books WHERE librarian_code=?1 AND LOWER(name) LIKE %?2% AND id LIKE %?3% AND (price BETWEEN ?4 AND ?5) AND page_count=?6 AND publish_date LIKE %?7% AND LOWER(author) LIKE %?8% AND LOWER(color) LIKE %?9%", nativeQuery = true)
+List<BookEntity> findMyBooksSearchFilter(Integer librarianCode, String name, String id, Double priceMin, Double priceMax, Integer pageCount,
+        String publishDate, String author, String color);
+
+
+
 }
 

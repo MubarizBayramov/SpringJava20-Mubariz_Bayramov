@@ -7,8 +7,5 @@ import lombok.Data;
 public class LibrarianAddResponse {
 	private Integer id;
 
-	public void setId(Integer id2) {
-		
-		
-	}
+	
 }

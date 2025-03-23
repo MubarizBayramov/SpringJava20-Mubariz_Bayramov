@@ -12,12 +12,7 @@ public class AuthorityService {
 
 	@Autowired
 	private AuthorityRepository repository;
-//
-//	public void addStudentAuthorities(StudentAddRequest req) {
-//		String username = req.getUsername();
-//		repository.addStudentAuthorities(username);
-//
-//	}
+
 
 	public void addLibrarianAuthorities(String username) {
 

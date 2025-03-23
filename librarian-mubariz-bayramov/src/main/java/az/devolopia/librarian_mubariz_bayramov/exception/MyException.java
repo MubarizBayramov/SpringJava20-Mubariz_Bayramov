@@ -21,23 +21,5 @@ public class MyException extends RuntimeException {
         this.type = type;
     }
 
-    // Getter for br
-    public BindingResult getBr() {
-        return br;
-    }
-
-    // Setter for br
-    public void setBr(BindingResult br) {
-        this.br = br;
-    }
-
-    // Getter for type
-    public String getType() {
-        return type;
-    }
-
-    // Setter for type
-    public void setType(String type) {
-        this.type = type;
-    }
+    
 }

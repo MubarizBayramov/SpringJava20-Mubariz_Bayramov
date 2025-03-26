@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
+
+
+
 @Table(name = "librarians")
 public class LibrarianEntity {
 

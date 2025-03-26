@@ -20,7 +20,7 @@ insert into authorities (username,authority)
 select 'l1',authority from authority_list where librarian=1;
 
 insert into authorities (username,authority)
-select 'l2',authority from authority_list where librarian=1;
+select 'l2',authority from authority_list where librarian=2;
 
 
 INSERT INTO books
@@ -38,3 +38,27 @@ VALUES
 ('Python', 'James yazdı 21', 57, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1),
 ('Docker', 'James yazdı 21', 88, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1),
 ('Kubernetes', 'James yazdı 21', 99, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1);
+
+
+
+insert into authority_list
+(authority, librarian, student) values
+('ROLE_SEARCH_BOOK', 0, 1);
+
+
+insert into users
+(username, password, enabled, user_id, user_type) values
+('s1', '{noop}pass1', 1, 3, 'student'),
+('s2', '{noop}pass2', 1, 4, 'student');
+
+
+insert into students (name, surname, phone, birthday) 
+VALUES ('s1', 'Stud1', '077', '2003-05-12'),
+       ('s2', 'Stud2', '076', '2002-08-19');
+
+
+insert into authorities (username, authority)
+select 's1', authority from authority_list where student=1;
+
+insert into authorities (username, authority)
+select 's2', authority from authority_list where student=2;

@@ -20,4 +20,16 @@ public class AuthorityService {
 
 	}
 
+
+	public void addStudentAuthorities(String username) {
+		
+		repository.addStudentAuthorities(username);
+	}
+
+
+	public void grantPermission(String username, String string) {
+	
+		repository.addStudentAuthorities(username);	
+	}
+
 }

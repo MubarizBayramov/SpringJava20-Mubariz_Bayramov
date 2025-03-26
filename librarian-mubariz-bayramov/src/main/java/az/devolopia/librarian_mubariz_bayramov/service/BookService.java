@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import az.devolopia.librarian_mubariz_bayramov.config.MyConfig;
 import az.devolopia.librarian_mubariz_bayramov.entity.BookEntity;
 import az.devolopia.librarian_mubariz_bayramov.entity.UserEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
@@ -40,6 +41,9 @@ public class BookService {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MyConfig myConfig;
 
 	public BookAddResponse add(BookAddRequest req) {
 		BookEntity en = new BookEntity();
@@ -196,9 +200,11 @@ public class BookService {
 	    Long count = repository.findMyBooksSearchFilterCheck(operatorLibrarianCode, r.getName(), r.getId(), r.getPriceMin(),
 	            r.getPriceMax(), r.getPageCount(), r.getPublishDate(), r.getAuthor(), r.getColor());
 
-	    if (count > 3) {
-	        throw new MyException("Axtarışı dəqiqləşdirin, tapılan məlumat sayı = " + count + ", maksimum 3 ola bilər",
-	                null, "data-too-long");
+	    Integer rowCountLimit = myConfig.getRowCountLimit();
+		System.out.println(rowCountLimit);
+		if (count > rowCountLimit) {
+			throw new MyException("axtraisi deiqlqesdirin, tapilan melumat sayisi = " + count + ", maksimum "
+					+ rowCountLimit + " ola iler", null, "data-too-long");
 	    }
 
 	    List<BookEntity> filtered = repository.findMyBooksSearchFilter(operatorLibrarianCode, r.getName(), r.getId(),

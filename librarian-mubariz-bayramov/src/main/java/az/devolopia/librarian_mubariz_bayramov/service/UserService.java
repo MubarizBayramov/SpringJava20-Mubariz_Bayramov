@@ -13,7 +13,9 @@ import az.devolopia.librarian_mubariz_bayramov.entity.UserEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.UserRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.LibrarianAddRequest;
+import az.devolopia.librarian_mubariz_bayramov.request.StudentAddRequest;
 import az.devolopia.librarian_mubariz_bayramov.util.Constants;
+import jakarta.validation.Valid;
 
 @Service
 @Transactional
@@ -82,6 +84,11 @@ public class UserService {
 	public String findUsername() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return username;
+	}
+
+	public Integer addStudent(@Valid StudentAddRequest req) {
+		
+		return null;
 	}
 
 }

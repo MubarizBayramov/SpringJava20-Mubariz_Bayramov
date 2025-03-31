@@ -2,9 +2,6 @@ package az.devolopia.librarian_mubariz_bayramov.service;
 
 
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +17,7 @@ import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.BookRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.BookAddRequest;
 import az.devolopia.librarian_mubariz_bayramov.request.BookFilterRequest;
+import az.devolopia.librarian_mubariz_bayramov.request.BookFilterRequestForStudent;
 import az.devolopia.librarian_mubariz_bayramov.request.BookUpdateRequest;
 import az.devolopia.librarian_mubariz_bayramov.response.BookAddResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.BookListResponse;
@@ -166,14 +164,6 @@ public class BookService {
 
 	
 
-	public void metod() throws FileNotFoundException {
-		int a = 3;
-		int b = 0;
-		BufferedReader br = new BufferedReader(new FileReader(""));
-		System.out.println(a / b);
-
-	}
-
 	public BookListResponse findPagination(Integer begin, Integer length) {
 		BookListResponse s = new BookListResponse();
 		List<BookEntity> filtered = repository.findPagination(begin, length);
@@ -221,6 +211,41 @@ public class BookService {
 	    return s;
 	}
 
+	public BookListResponse findAllSearchFilterForStudent(BookFilterRequestForStudent req) {
+		
+		
+		Integer categoryId = req.getCategoryId();
+		String category = "";
+		if (categoryId != 0) {
+			category = String.valueOf(categoryId);
+		}
+
+		BookListResponse s = new BookListResponse();
+
+		Integer length = req.getLength();
+		if (length > myConfig.getRowCountLimit()) {
+			throw new MyException("melumat limiti asildi", null, "data-too-long");
+		}
+		List<BookEntity> entities = repository.searchFilterCountForStudent(req.getName(), category, req.getBegin(),
+				req.getLength());
+
+		Long totalSize = repository.searchFilterCountForStudent(req.getName(), category);
+
+		List<BookSingleResponse> list = new ArrayList<BookSingleResponse>();
+
+		for (BookEntity en : entities) {
+			BookSingleResponse se = new BookSingleResponse();
+			mapper.map(en, se);
+			list.add(se);
+		}
+		s.setBooks(list);
+		s.setTotalSize(totalSize);
+
+		return s;
+	}
+		
+	}
+
 	
-}
+
 

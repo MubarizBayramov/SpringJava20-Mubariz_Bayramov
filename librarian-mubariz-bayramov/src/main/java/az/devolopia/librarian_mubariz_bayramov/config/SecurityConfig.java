@@ -42,9 +42,14 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/users/librarian").permitAll().anyRequest().authenticated())
-				.httpBasic(Customizer.withDefaults())
-				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())); // Yeni sintaksis
+						.requestMatchers(HttpMethod.POST, "/users/librarian").permitAll()
+						
+						.requestMatchers(HttpMethod.POST, "/books/filter-for-student").permitAll()
+						
+						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+						.anyRequest().authenticated())
+				.httpBasic(Customizer.withDefaults()) // Basic Authentication aktivləşdirilir
+				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
 
 		return http.build();
 

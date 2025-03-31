@@ -43,5 +43,5 @@ public class BookEntity {
 
 	private Integer LibrarianCode;
 
-
+	private Integer categoryId;
 }

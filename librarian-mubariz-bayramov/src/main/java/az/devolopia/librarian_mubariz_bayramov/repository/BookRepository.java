@@ -34,6 +34,11 @@ Long findMyBooksSearchFilterCheck(Integer librarianCode, String name, String id,
 List<BookEntity> findMyBooksSearchFilter(Integer librarianCode, String name, String id, Double priceMin, Double priceMax, Integer pageCount,
         String publishDate, String author, String color);
 
+@Query(value = "select count(*) from books where lower(name) like %?1% and category_id like %?2%", nativeQuery = true)
+Long searchFilterCountForStudent(String name, String category);
+
+@Query(value = "select * from books where lower(name) like %?1% and category_id like %?2% limit ?3,?4", nativeQuery = true)
+List<BookEntity> searchFilterCountForStudent(String name, String category, Integer begin, Integer length);
 
 
 }

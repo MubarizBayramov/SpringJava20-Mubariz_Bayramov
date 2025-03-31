@@ -13,7 +13,8 @@ public class BookListResponse {
 	
 	private List<BookSingleResponse> books;
 
-	
+	private Long totalSize;
+		
+		
+	}
 
-	
-}

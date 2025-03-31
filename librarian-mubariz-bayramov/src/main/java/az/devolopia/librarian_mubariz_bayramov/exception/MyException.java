@@ -12,7 +12,10 @@ import lombok.Setter;
 
 
 public class MyException extends RuntimeException {
-    private BindingResult br;
+	
+	private static final long serialVersionUID = 1L;
+	
+	private BindingResult br;
     private String type;
 
     public MyException(String m, BindingResult br, String type) {

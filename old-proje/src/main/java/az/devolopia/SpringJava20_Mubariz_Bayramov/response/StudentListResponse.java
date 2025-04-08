@@ -7,8 +7,4 @@ import lombok.Data;
 @Data
 public class StudentListResponse {
 	private List<StudentSingleResponse> students;
-
-	public void setStudents(List<StudentSingleResponse> singleResponses) {
-		
-	}
 }

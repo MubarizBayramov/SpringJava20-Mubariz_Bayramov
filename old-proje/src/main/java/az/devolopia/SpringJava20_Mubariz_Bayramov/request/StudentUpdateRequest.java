@@ -8,8 +8,4 @@ public class StudentUpdateRequest {
 	private Integer id;
 	private String name;
 	private String surname;
-	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

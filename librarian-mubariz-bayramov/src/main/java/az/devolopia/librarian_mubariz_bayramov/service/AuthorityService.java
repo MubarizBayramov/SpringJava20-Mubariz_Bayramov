@@ -21,7 +21,8 @@ public class AuthorityService {
 	}
 
 
-	public void addStudentAuthorities(String username) {
+	
+public void addStudentAuthorities(String username) {
 		
 		repository.addStudentAuthorities(username);
 	}

@@ -1,5 +1,4 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.response;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

@@ -1,6 +1,4 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.util;
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 

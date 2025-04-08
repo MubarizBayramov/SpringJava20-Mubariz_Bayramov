@@ -1,5 +1,4 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.request;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -37,10 +36,5 @@ public class BookUpdateRequest {
 	private String email;
 
 	private LocalDate publishDate;
-
-	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

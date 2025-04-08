@@ -1,6 +1,5 @@
 
 package az.devolopia.SpringJava20_Mubariz_Bayramov.entity;
-
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -17,8 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "students")
-public class StudentEntity {
+@Table(name = "sellers")
+public class SellerEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,29 +30,4 @@ public class StudentEntity {
 	private String phone;
 
 	private LocalDate birthday;
-
-	public Integer getId() {
-		
-		return null;
-	}
-
-	public Object getName() {
-		
-		return null;
-	}
-
-	public void setName(Object name2) {
-		
-		
-	}
-
-	public Object getEmail() {
-	
-		return null;
-	}
-
-	public void setEmail(Object email) {
-		
-		
-	}
 }

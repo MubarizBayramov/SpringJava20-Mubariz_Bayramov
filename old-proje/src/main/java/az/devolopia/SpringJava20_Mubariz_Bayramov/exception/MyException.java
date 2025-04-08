@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class MyException extends RuntimeException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BindingResult br;
 	private String type;
 
@@ -19,10 +23,5 @@ public class MyException extends RuntimeException {
 		super(m);
 		this.br = br;
 		this.type = type;
-	}
-
-	public BindingResult getBr() {
-		
-		return null;
 	}
 }

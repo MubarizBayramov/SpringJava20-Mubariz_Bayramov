@@ -8,8 +8,6 @@ import az.devolopia.SpringJava20_Mubariz_Bayramov.entity.AuthorityEntity;
 import jakarta.transaction.Transactional;
 
 @Transactional
-
-
 public interface AuthorityRepository extends JpaRepository<AuthorityEntity, Integer> {
 
 	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where student=1", nativeQuery = true)
@@ -19,5 +17,9 @@ public interface AuthorityRepository extends JpaRepository<AuthorityEntity, Inte
 	@Modifying
 	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where admin=1", nativeQuery = true)
 	public void addAdminAuthorities(String username);
+
+	@Modifying
+	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where seller=1", nativeQuery = true)
+	public void addSellerAuthorities(String username);
 
 }

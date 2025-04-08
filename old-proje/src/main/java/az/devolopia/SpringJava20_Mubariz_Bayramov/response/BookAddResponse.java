@@ -6,13 +6,4 @@ import lombok.Data;
 public class BookAddResponse {
 	private Integer id;
 
-	public void setId(Object id2) {
-		
-	}
-
-	
-
-	
-
-
 }

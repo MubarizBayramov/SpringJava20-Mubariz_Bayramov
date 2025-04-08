@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookFilterRequest;
+import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookFilterRequestForCustomer;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookAddRequest;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.request.BookUpdateRequest;
@@ -33,20 +35,17 @@ public class BookController {
 
 	@PostMapping
 	@PreAuthorize(value = "hasAuthority('ROLE_ADD_BOOK')")
-
 	public ResponseEntity<BookAddResponse> add(@Valid @RequestBody BookAddRequest req, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
 		}
-		BookAddResponse resp = new BookAddResponse();
-		service.add(req);
+		BookAddResponse resp = service.add(req);
 		return new ResponseEntity<BookAddResponse>(resp, HttpStatus.CREATED);
 	}
 	///////////////
 
 	@GetMapping(path = "/search")
 	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
-
 	public ResponseEntity<BookListResponse> findAllSearch(@RequestParam(name = "query") String query) {
 
 		BookListResponse resp = service.findAllSearch(query);
@@ -56,7 +55,6 @@ public class BookController {
 
 	@DeleteMapping(path = "/{id}")
 	@PreAuthorize(value = "hasAuthority('ROLE_DELETE_BOOK')")
-
 	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
@@ -70,19 +68,14 @@ public class BookController {
 	}
 
 	@PutMapping
-	public void update(@Valid @RequestBody BookUpdateRequest u, BindingResult br) {
+	public ResponseEntity<?> update(@Valid @RequestBody BookUpdateRequest u, BindingResult br) {
 		if (br.hasErrors()) {
-			throw new MyException("melumatlarin tamligi pozulub", br, "validation");
+			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
 
 		}
 
-		try {
-			service.update(u);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-		
+		service.update(u);
+		return ResponseEntity.ok().build();
 
 	}
 
@@ -91,6 +84,25 @@ public class BookController {
 
 	public ResponseEntity<BookListResponse> findPagination(@PathVariable Integer begin, @PathVariable Integer length) {
 		BookListResponse resp = service.findPagination(begin, length);
+
+		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
+	}
+
+	@PostMapping(path = "/filter")
+	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
+	public ResponseEntity<BookListResponse> findAllSearchFilter(@RequestBody BookFilterRequest req) {
+
+		BookListResponse resp = service.findAllSearchFilter(req);
+
+		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
+	}
+
+	@PostMapping(path = "/filter-for-customer")
+
+	public ResponseEntity<BookListResponse> findAllSearchFilterForCustomer(
+			@RequestBody BookFilterRequestForCustomer req) {
+
+		BookListResponse resp = service.findAllSearchFilterForCustomer(req);
 
 		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
 	}

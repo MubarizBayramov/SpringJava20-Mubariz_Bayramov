@@ -10,12 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookListResponse {
-	
-	private List<BookSingleResponse> books;
 
-	public void setBooks(List<BookSingleResponse> list) {
-		// TODO Auto-generated method stub
-		
-	}
+	private List<BookSingleResponse> books;
+	private Long totalSize;
 
 }

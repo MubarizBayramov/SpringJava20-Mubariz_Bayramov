@@ -13,8 +13,8 @@ import az.devolopia.SpringJava20_Mubariz_Bayramov.exception.MyException;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.MyErrorResponse;
 import az.devolopia.SpringJava20_Mubariz_Bayramov.response.MyFieldError;
 
-
 @RestControllerAdvice
+
 public class MyHandler {
 	@ExceptionHandler
 	public MyErrorResponse handleMyException(MyException e) {

@@ -1,5 +1,4 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.entity;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -40,12 +39,8 @@ public class BookEntity {
 
 	private Double weight;
 
-	private String email;
-
 	private LocalDate publishDate;
 
-	public Object getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private Integer sellerCode;
+	private Integer categoryId;
 }

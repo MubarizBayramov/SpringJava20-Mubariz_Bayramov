@@ -1,7 +1,7 @@
-
-
 package az.devolopia.SpringJava20_Mubariz_Bayramov.entity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -13,18 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "users")
-public class UserEntity {
-
+@Table(name = "authority_list")
+public class AuthorityListEntity {
 	@Id
-	private String username;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-	private String password;
+	private String authority;
 
-	private Integer userId;
+	private Integer seller;
 
-	private String userType;
-
-	private Boolean enabled;
-
+	private Integer customer;
 }

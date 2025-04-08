@@ -1,5 +1,4 @@
 package az.devolopia.SpringJava20_Mubariz_Bayramov.request;
-import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,19 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+public class BookFilterRequest {
 
-public class StudentAddRequest {
+	private String id;
 
 	private String name;
 
-	private String surname;
+	private String price;
 
-	private String phone;
+	private String pageCount;
 
-	private LocalDate birthday;
-
-	private String username;
-
-	private String password;
+	private String publishDate;
 
 }

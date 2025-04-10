@@ -1,50 +1,57 @@
 package az.devolopia.librarian_mubariz_bayramov.service;
-
-import java.util.Optional;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import az.devolopia.librarian_mubariz_bayramov.entity.StudentEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.StudentRepository;
-import az.devolopia.librarian_mubariz_bayramov.request.StudentAddRequest;
-import lombok.Data;
+import az.devolopia.librarian_mubariz_bayramov.request.StudentRequest;
+import lombok.RequiredArgsConstructor;
 
-@Data
 @Service
+@RequiredArgsConstructor
 public class StudentService {
-    @Autowired
-    private StudentRepository repository;
-    @Autowired
-    private ModelMapper mapper;
-    @Autowired
-    private AuthorityService authorityService;
-    
-    public Integer addStudent(StudentAddRequest req) {
-        // Check if username already exists
-        Optional<StudentEntity> existingStudent = repository.findByUsername(req.getUsername());
-        if (existingStudent.isPresent()) {
-            throw new MyException("Bu username artıq istifadə olunub!", null, "conflict");
-        }
-        
-        // Add student
+
+    private final StudentRepository studentRepository;
+
+    public void createStudent(StudentRequest request) {
         StudentEntity student = new StudentEntity();
-        mapper.map(req, student);
-        student.setPassword("{bcrypt}" + new BCryptPasswordEncoder().encode(req.getPassword()));
-        repository.save(student);
-        
-        // Assign default authority to search books
-        authorityService.addStudentAuthorities(student.getUsername());
-        authorityService.grantPermission(student.getUsername(), "BOOK_SEARCH");
-        
-        return student.getId();
+        student.setName(request.getName());
+        student.setSurname(request.getSurname());
+        student.setEmail(request.getEmail());
+        student.setUsername(request.getUsername());
+        student.setPassword(request.getPassword());
+        student.setPhone(request.getPhone());
+        student.setBirthday(request.getBirthday());
+
+        studentRepository.save(student);
     }
-    
-    public StudentEntity findByUsername(String username) {
-        return repository.findByUsername(username)
-                .orElseThrow(() -> new MyException("Bu istifadəçi tapılmadı", null, "not-found"));
+
+    public StudentEntity getStudentById(Integer id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new MyException("Student not found with ID: " + id, null, "NOT_FOUND"));
+    }
+
+    public void updateStudent(Integer id, StudentRequest request) {
+        StudentEntity student = studentRepository.findById(id)
+                .orElseThrow(() -> new MyException("Student not found with ID: " + id, null, "NOT_FOUND"));
+
+        student.setName(request.getName());
+        student.setSurname(request.getSurname());
+        student.setEmail(request.getEmail());
+        student.setUsername(request.getUsername());
+        student.setPassword(request.getPassword());
+        student.setPhone(request.getPhone());
+        student.setBirthday(request.getBirthday());
+
+        studentRepository.save(student);
+    }
+
+    public void deleteStudentById(Integer id) {
+        StudentEntity student = studentRepository.findById(id)
+                .orElseThrow(() -> new MyException("Student not found with ID: " + id, null, "NOT_FOUND"));
+
+        studentRepository.delete(student);
     }
 }
+
+

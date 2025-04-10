@@ -40,20 +40,28 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/users/librarian").permitAll()
-						.requestMatchers(HttpMethod.GET, "/files/video/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/books/filter-for-student").permitAll()
-						
-						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-						.anyRequest().authenticated())
-				.httpBasic(Customizer.withDefaults()) // Basic Authentication aktivləşdirilir
-				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
+	    http.csrf(csrf -> csrf.disable())
+	            .authorizeHttpRequests(auth -> auth
+	                    // Librarian üçün tələbə ilə bağlı əməliyyatlara icazə
+	                    .requestMatchers(HttpMethod.POST, "/students").hasRole("LIBRARIAN")
+	                    .requestMatchers(HttpMethod.PUT, "/students/**").hasRole("LIBRARIAN")
+	                    .requestMatchers(HttpMethod.DELETE, "/students/**").hasRole("LIBRARIAN")
+	                    .requestMatchers(HttpMethod.GET, "/students/**").hasRole("LIBRARIAN")
+	                    
+	                    // Digər əməliyyatlar üçün icazə
+	                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+	                    .requestMatchers(HttpMethod.POST, "/users/librarian").permitAll()
+	                    .requestMatchers(HttpMethod.GET, "/files/video/**").permitAll()
+	                    .requestMatchers(HttpMethod.POST, "/books/filter-for-student").permitAll()
+	                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 
-		return http.build();
+	                    // Digər bütün istəklər üçün authentication tələb olunur
+	                    .anyRequest().authenticated())
+	            .httpBasic(Customizer.withDefaults()) // Basic Authentication aktivləşdirilir
+	            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
 
+	    return http.build();
 	}
-
 }
+
 	

@@ -2,7 +2,7 @@ package az.devolopia.SpringJava20_Mubariz_Bayramov.service;
 
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -161,13 +161,7 @@ public class BookService {
 		System.out.println("BookService int kons");
 	}
 
-	public void metod1() throws FileNotFoundException {
-		int a = 3;
-		int b = 0;
-		BufferedReader br = new BufferedReader(new FileReader(""));
-		System.out.println(a / b);
-
-	}
+	
 
 	public BookListResponse findPagination(Integer begin, Integer length) {
 		BookListResponse s = new BookListResponse();

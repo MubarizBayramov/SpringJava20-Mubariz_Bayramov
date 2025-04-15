@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.request.LibrarianAddRequest;
-import az.devolopia.librarian_mubariz_bayramov.request.StudentAddRequest;
 import az.devolopia.librarian_mubariz_bayramov.response.LibrarianAddResponse;
-import az.devolopia.librarian_mubariz_bayramov.response.StudentAddResponse;
 import az.devolopia.librarian_mubariz_bayramov.service.UserService;
 import az.devolopia.librarian_mubariz_bayramov.util.Constants;
 import jakarta.validation.Valid;
@@ -37,17 +35,5 @@ public class UserController {
 		resp.setId(id);
 		return new ResponseEntity<LibrarianAddResponse>(resp, HttpStatus.CREATED);
 	}
+}
 	
-	
-	    @PostMapping(path = "/student")
-	    public ResponseEntity<StudentAddResponse> addStudent(@Valid @RequestBody StudentAddRequest req, BindingResult br) {
-	        if (br.hasErrors()) {
-	            throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
-	        }
-	        StudentAddResponse resp = new StudentAddResponse();
-	        Integer id = service.addStudent(req);
-	        resp.setId(id);
-	        return new ResponseEntity<>(resp, HttpStatus.CREATED);
-	    }
-	}
-

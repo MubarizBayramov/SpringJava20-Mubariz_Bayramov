@@ -1,8 +1,11 @@
 package az.devolopia.librarian_mubariz_bayramov.controller;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,80 +14,62 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import az.devolopia.librarian_mubariz_bayramov.entity.StudentEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
-import az.devolopia.librarian_mubariz_bayramov.request.StudentRequest;
-import az.devolopia.librarian_mubariz_bayramov.response.MyErrorResponse;
+import az.devolopia.librarian_mubariz_bayramov.request.StudentAddRequest;
+import az.devolopia.librarian_mubariz_bayramov.request.StudentUpdateRequest;
+import az.devolopia.librarian_mubariz_bayramov.response.StudentAddResponse;
+import az.devolopia.librarian_mubariz_bayramov.response.StudentSearchResponse;
 import az.devolopia.librarian_mubariz_bayramov.service.StudentService;
+import az.devolopia.librarian_mubariz_bayramov.util.Constants;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/students")
-@RequiredArgsConstructor
+@RequestMapping(path = "/students")
 public class StudentController {
 
-    private final StudentService studentService;
+    @Autowired
+    private StudentService studentService;
 
-   
+
     @PostMapping
-    public ResponseEntity<MyErrorResponse> createStudent(@Valid @RequestBody StudentRequest request, BindingResult br) {
+    @PreAuthorize(value = "hasAuthority('ROLE_ADD_STUDENT')")
+    public ResponseEntity<StudentAddResponse> add(@Valid @RequestBody StudentAddRequest req, BindingResult br) {
         if (br.hasErrors()) {
-            throw new MyException("Validation error during student creation", br, "VALIDATION");
+            throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
         }
-
-        studentService.createStudent(request);
-
-        MyErrorResponse response = MyErrorResponse.builder()
-                .message("Student successfully created.")
-                .date(LocalDateTime.now())
-                .build();
-
-        return ResponseEntity.ok(response);
+        studentService.add(req);
+        StudentAddResponse resp = new StudentAddResponse("Student successfully added");
+        return new ResponseEntity<>(resp, HttpStatus.CREATED);
     }
 
-   
-    @GetMapping("/{id}")
-    public ResponseEntity<StudentEntity> getStudent(@PathVariable Integer id) {
-        StudentEntity student = studentService.getStudentById(id);
-
-        return ResponseEntity.ok(student);
+  
+    @DeleteMapping("/{id}")
+    @PreAuthorize(value = "hasAuthority('ROLE_DELETE_STUDENT')")
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        studentService.delete(id);
+        return new ResponseEntity<>("Student successfully deleted", HttpStatus.OK);
     }
 
    
     @PutMapping("/{id}")
-    public ResponseEntity<MyErrorResponse> updateStudent(@PathVariable Integer id,
-                                                         @Valid @RequestBody StudentRequest request,
-                                                         BindingResult br) {
+    @PreAuthorize(value = "hasAuthority('ROLE_UPDATE_STUDENT')")
+    public ResponseEntity<String> update(@PathVariable Integer id, @Valid @RequestBody StudentUpdateRequest req, BindingResult br) {
         if (br.hasErrors()) {
-            throw new MyException("Validation error during student update", br, "VALIDATION");
+            throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
         }
-
-        studentService.updateStudent(id, request);
-
-        MyErrorResponse response = MyErrorResponse.builder()
-                .message("Student with ID " + id + " has been updated successfully.")
-                .date(LocalDateTime.now())
-                .build();
-
-        return ResponseEntity.ok(response);
+        studentService.update(id, req);
+        return new ResponseEntity<>("Student successfully updated", HttpStatus.OK);
     }
 
-   
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MyErrorResponse> deleteStudent(@PathVariable Integer id) {
-        studentService.deleteStudentById(id);
-
-        MyErrorResponse response = MyErrorResponse.builder()
-                .message("Student with ID " + id + " has been deleted successfully.")
-                .date(LocalDateTime.now())
-                .build();
-
-        return ResponseEntity.ok(response);
+  
+    @GetMapping("/search")
+    @PreAuthorize(value = "hasAuthority('ROLE_SEARCH_STUDENT')")
+    public ResponseEntity<List<StudentSearchResponse>> search(@RequestParam String name) {
+        List<StudentSearchResponse> students = studentService.search(name);
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
+
 }
-
-
-

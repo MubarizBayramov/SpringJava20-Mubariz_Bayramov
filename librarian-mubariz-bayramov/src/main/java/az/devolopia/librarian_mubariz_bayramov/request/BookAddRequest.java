@@ -42,6 +42,8 @@ public class BookAddRequest {
 
 	private Double weight;
 
+	private Integer LibrarianCode;
+	
 	@Past(message = "nese")
 	private LocalDate publishDate;
 

@@ -117,6 +117,9 @@ public class BookService {
 		}
 	}
 
+	
+	
+	
 	public BookSingleResponse findById(Integer id) {
 		Optional<BookEntity> o = repository.findById(id);
 		BookEntity en = null;
@@ -131,6 +134,10 @@ public class BookService {
 
 	}
 
+	
+	
+	
+	
 	public void update(BookUpdateRequest u) {
 		
 		Integer id = u.getId();
@@ -151,8 +158,8 @@ public class BookService {
 		String username = userService.findUsername();
 		UserEntity operator = userService.findByUsername(username);
 		Integer operatorLibrarianCode = operator.getUserId();
-		Integer LibrarianCode = en.getLibrarianCode();
-		if (LibrarianCode==operatorLibrarianCode) {
+		Integer librarianCode = en.getLibrarianCode();
+		if (librarianCode==operatorLibrarianCode) {
 			repository.save(en);
 		} else { 
 			throw new MyException("başqasının kitabını redaktə edə bilməzsiniz", null, "forbidden");

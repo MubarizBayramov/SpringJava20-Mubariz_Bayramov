@@ -1,10 +1,15 @@
 package az.devolopia.librarian_mubariz_bayramov.request;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,34 +19,38 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookUpdateRequest {
 
-	@NotNull
-	@Positive
-	
-	
-	private Integer id;
+    @NotNull(message = "ID boş ola bilməz")
+    @Positive(message = "ID müsbət olmalıdır")
+    private Integer id;
 
-	private String name;
+    @NotBlank(message = "Kitabın adı boş ola bilməz")
+    private String name;
 
-	private String description;
+    @Size(max = 1000, message = "Təsvir maksimum 1000 simvol ola bilər")
+    private String description;
 
-	private BigDecimal price;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Qiymət müsbət olmalıdır")
+    private BigDecimal price;
 
-	private String author;
+    @NotBlank(message = "Müəllif adı boş ola bilməz")
+    private String author;
 
-	private String color;
+    private String color;
 
-	private Integer pageCount;
+    @Positive(message = "Səhifə sayı müsbət olmalıdır")
+    private Integer pageCount;
 
-	private Integer quantity;
+    @PositiveOrZero(message = "Say sıfır və ya daha çox olmalıdır")
+    private Integer quantity;
 
-	private Double weight;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Çəki müsbət olmalıdır")
+    private Double weight;
 
-	private String email;
+    @Email(message = "Email düzgün formatda deyil")
+    private String email;
 
-	private LocalDate publishDate;
-
-	
-
-	}
+    @PastOrPresent(message = "Yayımlanma tarixi keçmiş və ya bu gün olmalıdır")
+    private LocalDate publishDate;
+}
 
 	

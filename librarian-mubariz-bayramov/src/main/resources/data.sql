@@ -1,26 +1,40 @@
 
-insert into authority_list
-( authority,librarian,student) values
+insert into authority_list (authority, librarian, student) values
+('ROLE_ADD_STUDENT', 1, 0),
+('ROLE_DELETE_STUDENT', 1, 0),
+('ROLE_UPDATE_STUDENT', 1, 0),
+('ROLE_SEARCH_STUDENT', 1, 0),
 ('ROLE_ADD_BOOK',1,0),
 ('ROLE_DELETE_BOOK',1,0),
 ('ROLE_GET_BOOK',1,0),
 ('ROLE_UPDATE_BOOK',1,0),
 ('ROLE_SEARCH_BOOK',1,0);
+
+
 insert into users
 (username,password,enabled,user_id,user_type) values
 ('l1','{noop}123',1,1,'librarian'),
-('l2','{noop}1234',1,2,'librarian');
+('l2','{noop}1234',1,2,'librarian'),
+('s1', '{noop}pass1', 1, 1, 'student'),
+('s2', '{noop}pass2', 1, 2, 'student');
+
+
 
 insert into librarians (name, surname, phone, birthday) 
 VALUES ('l1', 'Lib1', '099', '2021-02-05'),
        ('l2', 'Lib2', '098', '2020-02-05');
 
+       
+insert into students (name, surname, email, age, librarian_code) 
+VALUES 
+('s1', 'Stud1', 'email1@example.com', 20, 1), 
+('s2', 'Stud2', 'email2@example.com', 24, 1),
+('s3', 'Stud3', 'email3@example.com', 25, 1),
+('s4', 'Stud4', 'email4@example.com', 22, 1),
+('s5', 'Stud5', 'email5@example.com', 23, 1),
+('s6', 'Stud6', 'email6@example.com', 21, 1);
 
-insert into authorities (username,authority)
-select 'l1',authority from authority_list where librarian=1;
 
-insert into authorities (username,authority)
-select 'l2',authority from authority_list where librarian=2;
 
 
 INSERT INTO books
@@ -41,24 +55,15 @@ VALUES
 
 
 
-insert into authority_list
-(authority, librarian, student) values
-('ROLE_SEARCH_BOOK', 0, 1);
+insert into authorities (username, authority)
+select 'l1', authority from authority_list where librarian = 1;
 
-
-insert into users
-(username, password, enabled, user_id, user_type) values
-('s1', '{noop}pass1', 1, 3, 'student'),
-('s2', '{noop}pass2', 1, 4, 'student');
-
-
-insert into students (name, surname, phone, birthday) 
-VALUES ('s1', 'Stud1', '077', '2003-05-12'),
-       ('s2', 'Stud2', '076', '2002-08-19');
+insert into authorities (username, authority)
+select 'l2', authority from authority_list where librarian = 1;
 
 
 insert into authorities (username, authority)
 select 's1', authority from authority_list where student=1;
 
 insert into authorities (username, authority)
-select 's2', authority from authority_list where student=2;
+select 's2', authority from authority_list where student=1;

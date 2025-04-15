@@ -61,30 +61,31 @@ public class BookController {
 	@DeleteMapping(path = "/{id}")
 	@PreAuthorize(value = "hasAuthority('ROLE_DELETE_BOOK')")
 	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
-		
-	
-		service.deleteById(id);
-		return ResponseEntity.noContent().build();
+	service.deleteById(id);
+	return ResponseEntity.noContent().build();
 	}
 
+	
+	
 	@GetMapping(path = "/{id}")
 	@PreAuthorize(value = "hasAuthority('ROLE_GET_BOOK')")
 	public BookSingleResponse findById(@PathVariable Integer id) {
 		return service.findById(id);
 	}
 
+	
+	
 	@PutMapping
 	public ResponseEntity<?> update(@Valid @RequestBody BookUpdateRequest u, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
-
 		}
-
 		service.update(u);
-     return ResponseEntity.ok().build();
-     
-	}
+		return ResponseEntity.ok("Kitab uğurla yeniləndi");
+   	}
 
+	
+	
 	@GetMapping(path = "/begin/{begin}/length/{length}")
 	@PreAuthorize(value = "hasAuthority('ROLE_GET_BOOK')")
 
@@ -104,8 +105,9 @@ public class BookController {
 	}
 
 
+	
+	
 	@PostMapping(path = "/filter-for-student")
-
 	public ResponseEntity<BookListResponse> findAllSearchFilterForStudent(
 			@RequestBody BookFilterRequestForStudent req) {
 

@@ -3,6 +3,8 @@ package az.devolopia.librarian_mubariz_bayramov.response;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookSingleResponse {
-
+	
 	private Integer id;
 
 	private String name;
@@ -30,8 +32,12 @@ public class BookSingleResponse {
 
 	private Double weight;
 
-	private String email;
-
+	
+		
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate publishDate;
+
+	
+
 
 }

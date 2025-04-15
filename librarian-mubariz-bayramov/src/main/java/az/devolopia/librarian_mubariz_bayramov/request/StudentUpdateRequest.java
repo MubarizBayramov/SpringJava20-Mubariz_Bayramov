@@ -1,13 +1,12 @@
 package az.devolopia.librarian_mubariz_bayramov.request;
 
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class StudentAddRequest {
+public class StudentUpdateRequest {
 
     @NotEmpty(message = "Name is required")
     private String name;
@@ -24,3 +23,5 @@ public class StudentAddRequest {
     private Integer librarianCode;
 }
 
+
+	

@@ -67,3 +67,16 @@ select 's1', authority from authority_list where student=1;
 
 insert into authorities (username, authority)
 select 's2', authority from authority_list where student=1;
+
+
+insert into translates
+( language,word,translate) values
+('en','file','File'),
+('en','edit','Edit'),
+
+('az','file','Fayl'),
+('az','edit','Redakte'),
+
+('tr','file','Fayl'),
+('tr','Dosya','Düzenleme');
+

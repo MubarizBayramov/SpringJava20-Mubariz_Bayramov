@@ -45,6 +45,9 @@ public class BookController {
 	}
 	
 	
+	
+	BookListResponse resp = null;
+		
 	@GetMapping(path = "/search")
 	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
 	public ResponseEntity<BookListResponse> findAllSearch(
@@ -53,9 +56,15 @@ public class BookController {
 	        @RequestParam(name = "maxPrice", required = false) Double maxPrice,
 	        @RequestParam(name = "author", required = false) String author) {
 
-	    BookListResponse resp = service.findAllSearch(query, minPrice, maxPrice, author);
+		
+		if(this.resp==null) { // keşləmə - "REST caching" hər dəfə baza getməyə ehtiyac yoxdur
+		     resp = service.findAllSearch(query, minPrice, maxPrice, author);
+		}
 	    return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
+
+	
+	
 
 	
 	@DeleteMapping(path = "/{id}")

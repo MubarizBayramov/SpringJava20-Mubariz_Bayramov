@@ -44,7 +44,7 @@ public class BookAddRequest {
 
 	private Integer LibrarianCode;
 	
-	@Past(message = "nese")
+	@Past(message = "Kitabın çap tarixi keçmişdə olmalıdır")
 	private LocalDate publishDate;
 
 }

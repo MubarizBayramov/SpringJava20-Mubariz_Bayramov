@@ -80,3 +80,18 @@ insert into translates
 ('tr','file','Fayl'),
 ('tr','Dosya','Düzenleme');
 
+
+
+ Drop table librarians_book_count;
+   Create view librarians_book_count as( 
+    SELECT 
+        l.name AS librarian_name,
+        l.surname AS librarian_surname,
+        COUNT(b.id) AS book_count
+    FROM librarians l
+    LEFT JOIN books b ON l.id = b.librarian_code
+    GROUP BY l.id, l.name, l.surname )
+
+
+
+

@@ -136,8 +136,6 @@ public class BookService {
 
 	
 	
-	
-	
 	public void update(BookUpdateRequest u) {
 		
 		Integer id = u.getId();

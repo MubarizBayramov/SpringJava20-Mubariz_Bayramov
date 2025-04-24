@@ -45,7 +45,8 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 						.requestMatchers(HttpMethod.POST, "/users/librarian").permitAll()
 						.requestMatchers(HttpMethod.GET, "/files/video/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/books/filter-for-customer").permitAll()
+						.requestMatchers(HttpMethod.POST, "/books/give-to-student/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/books/filter-for-student").permitAll()
 						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 						.anyRequest().authenticated())
 				.httpBasic(Customizer.withDefaults()) // Basic Authentication aktivləşdirilir

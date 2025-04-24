@@ -39,7 +39,8 @@ public class BookController {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
 		}
-		BookAddResponse resp = new BookAddResponse();
+		BookAddResponse resp = service.add(req); // service metod nəticəsi qaytarmalıdır
+
 		service.add(req);
 		return new ResponseEntity<BookAddResponse>(resp, HttpStatus.CREATED);
 	}
@@ -47,7 +48,6 @@ public class BookController {
 	
 	
 	BookListResponse resp = null;
-		
 	@GetMapping(path = "/search")
 	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")
 	public ResponseEntity<BookListResponse> findAllSearch(
@@ -85,6 +85,7 @@ public class BookController {
 	
 	
 	@PutMapping
+	@PreAuthorize(value = "hasAuthority('ROLE_UPDATE_BOOK')")
 	public ResponseEntity<?> update(@Valid @RequestBody BookUpdateRequest u, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
@@ -103,6 +104,7 @@ public class BookController {
 
 		return new ResponseEntity<BookListResponse>(resp, HttpStatus.OK);
 	}
+	
 	
 	@PostMapping(path = "/filter")
 	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_BOOK')")

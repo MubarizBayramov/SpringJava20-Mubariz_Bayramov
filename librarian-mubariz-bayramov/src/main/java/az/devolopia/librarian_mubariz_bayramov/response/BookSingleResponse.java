@@ -32,8 +32,6 @@ public class BookSingleResponse {
 
 	private Double weight;
 
-	
-		
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate publishDate;
 

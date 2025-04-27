@@ -46,12 +46,12 @@ public class StudentBookService {
         LibrarianEntity librarian = librarianRepository.findById(request.getLibrarianId())
                 .orElseThrow(() -> new MyException("Librarian not found", null, "NOT_FOUND"));
 
-        // Kitabı ver və miqdarı azald
+        
         book.setQuantity(book.getQuantity() - 1);
         bookRepository.save(book);
 
         LocalDate now = LocalDate.now();
-        LocalDate due = now.plusWeeks(2); // 2 həftəlik verilir
+        LocalDate due = now.plusWeeks(2); 
 
         StudentBookEntity studentBook = new StudentBookEntity(null, student.getId(), book.getId(), now, due, librarian.getId());
         studentBookRepository.save(studentBook);

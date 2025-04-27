@@ -137,14 +137,10 @@ public class BookService {
 	
 	
 	public void update(BookUpdateRequest u) {
-		
-		Integer id = u.getId();
-		
-		
-		Optional<BookEntity> byId = repository.findById(id);
+				Integer id = u.getId();
+				Optional<BookEntity> byId = repository.findById(id);
 		if (!byId.isPresent()) {
 			String oxunan = fileReader.readFromFile("id-not-found.txt");
-
 			throw new MyException(oxunan, null, "id-not-found");
 		}
 		

@@ -19,6 +19,7 @@ import az.devolopia.librarian_mubariz_bayramov.request.ReturnBookRequest;
 import az.devolopia.librarian_mubariz_bayramov.response.GiveBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.GivenBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.ReturnBookResponse;
+import az.devolopia.librarian_mubariz_bayramov.response.StudentBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.util.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -90,6 +91,7 @@ public class StudentBookService {
 
         return new ReturnBookResponse("Kitab uğurla qaytarıldı", LocalDate.now());
     }
+    
     public List<GivenBookResponse> getAllGivenBooksByLibrarian(Integer librarianCode) {
         List<StudentBookEntity> studentBooks = studentBookRepository.findAll();
 
@@ -112,6 +114,22 @@ public class StudentBookService {
                     );
                 })
                 .collect(Collectors.toList());
+    }
+    public List<StudentBookResponse> getReturnedBooks(Integer librarianCode) {
+        List<StudentBookEntity> list = studentBookRepository.findAllReturnedBooksByLibrarianCode(librarianCode);
+        
+        return list.stream().map(e -> {
+            BookEntity book = bookRepository.findById(e.getBookId()).orElse(null);
+            StudentEntity student = studentRepository.findById(e.getStudentId()).orElse(null);
+
+            StudentBookResponse response = new StudentBookResponse();
+            response.setBookName(book != null ? book.getName() : "N/A");
+            response.setStudentName(student != null ? student.getName() + " " + student.getSurname() : "N/A");
+            response.setGivenDate(e.getGivenDate());
+            response.setDueDate(e.getDueDate());
+            response.setReturned(e.isReturned());
+            return response;
+        }).toList();
     }
 
 

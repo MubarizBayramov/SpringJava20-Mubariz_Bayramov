@@ -1,6 +1,8 @@
 package az.devolopia.librarian_mubariz_bayramov.service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,7 @@ import az.devolopia.librarian_mubariz_bayramov.repository.StudentRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.GiveBookRequest;
 import az.devolopia.librarian_mubariz_bayramov.request.ReturnBookRequest;
 import az.devolopia.librarian_mubariz_bayramov.response.GiveBookResponse;
+import az.devolopia.librarian_mubariz_bayramov.response.GivenBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.ReturnBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.util.Constants;
 import jakarta.validation.Valid;
@@ -53,7 +56,6 @@ public class StudentBookService {
         entity.setGivenDate(LocalDate.now());
         entity.setDueDate(request.getDueDate());
         entity.setReturned(false);
-
         studentBookRepository.save(entity);
 
         // Azalt kitab sayını
@@ -88,5 +90,29 @@ public class StudentBookService {
 
         return new ReturnBookResponse("Kitab uğurla qaytarıldı", LocalDate.now());
     }
+    public List<GivenBookResponse> getAllGivenBooksByLibrarian(Integer librarianCode) {
+        List<StudentBookEntity> studentBooks = studentBookRepository.findAll();
+
+        return studentBooks.stream()
+                .filter(sb -> {
+                    StudentEntity student = studentRepository.findById(sb.getStudentId()).orElse(null);
+                    BookEntity book = bookRepository.findById(sb.getBookId()).orElse(null);
+                    return student != null && book != null && student.getLibrarianCode().equals(librarianCode);
+                })
+                .map(sb -> {
+                    BookEntity book = bookRepository.findById(sb.getBookId()).orElse(null);
+                    StudentEntity student = studentRepository.findById(sb.getStudentId()).orElse(null);
+
+                    return new GivenBookResponse(
+                            book != null ? book.getName() : "Unknown Book",
+                            student != null ? student.getName() + " " + student.getSurname() : "Unknown Student",
+                            sb.getGivenDate(),
+                            sb.getDueDate(),
+                            sb.isReturned()
+                    );
+                })
+                .collect(Collectors.toList());
+    }
+
 
 }

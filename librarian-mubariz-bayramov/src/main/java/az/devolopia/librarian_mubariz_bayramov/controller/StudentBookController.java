@@ -17,6 +17,7 @@ import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.LibrarianRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.GiveBookRequest;
 import az.devolopia.librarian_mubariz_bayramov.request.ReturnBookRequest;
+import az.devolopia.librarian_mubariz_bayramov.response.DelayedBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.GiveBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.GivenBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.ReturnBookResponse;
@@ -75,6 +76,22 @@ public class StudentBookController {
         }
 
         return ResponseEntity.ok(studentBookService.getReturnedBooks(librarianCode));
+    }
+
+    
+    @GetMapping("/delayed-books/{librarianCode}") // Kitabxanaçının gecikən kitabları görməsi 
+    public ResponseEntity<List<DelayedBookResponse>> getDelayedBooks(
+            @PathVariable Integer librarianCode,
+            Principal principal) {
+
+        // Əlavə yoxlama: sadəcə öz kitablarını görsün
+        String username = principal.getName();
+        LibrarianEntity librarian = librarianRepository.findByName(username);
+        if (!librarian.getId().equals(librarianCode)) {
+            throw new MyException("Bu əməliyyata icazəniz yoxdur!", null, "Authorization");
+        }
+
+        return ResponseEntity.ok(studentBookService.getDelayedBooks(librarianCode));
     }
 
 }

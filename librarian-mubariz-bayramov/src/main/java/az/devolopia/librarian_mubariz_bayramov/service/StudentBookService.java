@@ -16,6 +16,7 @@ import az.devolopia.librarian_mubariz_bayramov.repository.StudentBookRepository;
 import az.devolopia.librarian_mubariz_bayramov.repository.StudentRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.GiveBookRequest;
 import az.devolopia.librarian_mubariz_bayramov.request.ReturnBookRequest;
+import az.devolopia.librarian_mubariz_bayramov.response.DelayedBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.GiveBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.GivenBookResponse;
 import az.devolopia.librarian_mubariz_bayramov.response.ReturnBookResponse;
@@ -123,6 +124,24 @@ public class StudentBookService {
             StudentEntity student = studentRepository.findById(e.getStudentId()).orElse(null);
 
             StudentBookResponse response = new StudentBookResponse();
+            response.setBookName(book != null ? book.getName() : "N/A");
+            response.setStudentName(student != null ? student.getName() + " " + student.getSurname() : "N/A");
+            response.setGivenDate(e.getGivenDate());
+            response.setDueDate(e.getDueDate());
+            response.setReturned(e.isReturned());
+            return response;
+        }).toList();
+    }
+    public List<DelayedBookResponse> getDelayedBooks(Integer librarianCode) {
+        LocalDate today = LocalDate.now();
+        
+        List<StudentBookEntity> list = studentBookRepository.findAllDelayedBooksByLibrarianCodeAndNotReturned(librarianCode, today);
+        
+        return list.stream().map(e -> {
+            BookEntity book = bookRepository.findById(e.getBookId()).orElse(null);
+            StudentEntity student = studentRepository.findById(e.getStudentId()).orElse(null);
+
+            DelayedBookResponse response = new DelayedBookResponse();
             response.setBookName(book != null ? book.getName() : "N/A");
             response.setStudentName(student != null ? student.getName() + " " + student.getSurname() : "N/A");
             response.setGivenDate(e.getGivenDate());

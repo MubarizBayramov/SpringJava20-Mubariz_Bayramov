@@ -2,7 +2,6 @@ package az.devolopia.librarian_mubariz_bayramov.entity;
 
 import java.time.LocalDate;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "student_books")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class StudentBookEntity {
 
     @Id
@@ -31,5 +30,5 @@ public class StudentBookEntity {
 
     private LocalDate dueDate;
 
-    private Integer librarianId;
+    private boolean returned;
 }

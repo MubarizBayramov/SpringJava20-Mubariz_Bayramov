@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GiveBookResponse {
+public class ReturnBookResponse {
     private String message;
-    private LocalDate givenDate;
-    private LocalDate dueDate;
+    private LocalDate returnDate;
 }
+

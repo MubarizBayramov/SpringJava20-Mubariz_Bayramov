@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,7 @@ public class StudentBookController {
     private StudentBookService studentBookService;
     
 
+	@PreAuthorize("hasAuthority('ROLE_GIVE_BOOK')")
     @PostMapping("/give")
     public ResponseEntity<GiveBookResponse> giveBookToStudent(
             @Valid @RequestBody GiveBookRequest request,
@@ -48,7 +50,7 @@ public class StudentBookController {
         return ResponseEntity.ok(response);
     }
 
-    
+    @PreAuthorize("hasAuthority('ROLE_RETURN_BOOK')")
     @PostMapping("/return")
     public ResponseEntity<ReturnBookResponse> returnBookFromStudent(
             @Valid @RequestBody ReturnBookRequest request,
@@ -56,43 +58,37 @@ public class StudentBookController {
         ReturnBookResponse response = studentBookService.returnBookFromStudent(request, br);
         return ResponseEntity.ok(response);
     }
-    
-    
+
+    @PreAuthorize("hasAuthority('ROLE_GET_GIVEN_BOOKS')")
     @GetMapping("/given-books/{librarianCode}")
     public ResponseEntity<List<GivenBookResponse>> getGivenBooksByLibrarian(@PathVariable Integer librarianCode) {
         List<GivenBookResponse> responseList = studentBookService.getAllGivenBooksByLibrarian(librarianCode);
         return ResponseEntity.ok(responseList);
     }
-    
-    
-    @GetMapping("/returned-books/{librarianCode}") //Kitabxanaçının qaytarılan kitabları görməsi
+
+    @PreAuthorize("hasAuthority('ROLE_GET_RETURNED_BOOKS')")
+    @GetMapping("/returned-books/{librarianCode}")
     public ResponseEntity<List<StudentBookResponse>> getReturnedBooks(
             @PathVariable Integer librarianCode,
             Principal principal) {
-        // Əlavə yoxlama: sadəcə öz kitablarını görsün
         String username = principal.getName();
         LibrarianEntity librarian = librarianRepository.findByName(username);
         if (!librarian.getId().equals(librarianCode)) {
             throw new MyException("Bu əməliyyata icazəniz yoxdur!", null, "Authorization");
         }
-
         return ResponseEntity.ok(studentBookService.getReturnedBooks(librarianCode));
     }
 
-    
-    @GetMapping("/delayed-books/{librarianCode}") // Kitabxanaçının gecikən kitabları görməsi 
+    @PreAuthorize("hasAuthority('ROLE_GET_DELAYED_BOOKS')")
+    @GetMapping("/delayed-books/{librarianCode}")
     public ResponseEntity<List<DelayedBookResponse>> getDelayedBooks(
             @PathVariable Integer librarianCode,
             Principal principal) {
-
-        // Əlavə yoxlama: sadəcə öz kitablarını görsün
         String username = principal.getName();
         LibrarianEntity librarian = librarianRepository.findByName(username);
         if (!librarian.getId().equals(librarianCode)) {
             throw new MyException("Bu əməliyyata icazəniz yoxdur!", null, "Authorization");
         }
-
         return ResponseEntity.ok(studentBookService.getDelayedBooks(librarianCode));
     }
-
 }

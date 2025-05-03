@@ -54,19 +54,30 @@ VALUES
 ('Kubernetes', 'James yazdı 21', 99, 'Emin, Yusif', 'red', 676, 150, 3, '2020-10-10', 1, 1);
 
 
-
 insert into authorities (username, authority)
 select 'l1', authority from authority_list where librarian = 1;
 
 insert into authorities (username, authority)
 select 'l2', authority from authority_list where librarian = 1;
 
+insert into authorities (username, authority)
+select 's1', authority from authority_list where student = 1;
 
 insert into authorities (username, authority)
-select 's1', authority from authority_list where student=1;
+select 's2', authority from authority_list where student = 1;
 
-insert into authorities (username, authority)
-select 's2', authority from authority_list where student=1;
+insert into authorities (username, authority) values 
+('l1', 'ROLE_GIVE_BOOK'),
+('l1', 'ROLE_RETURN_BOOK'),
+('l1', 'ROLE_GET_GIVEN_BOOKS'),
+('l1', 'ROLE_GET_RETURNED_BOOKS'),
+('l1', 'ROLE_GET_DELAYED_BOOKS'),
+('l2', 'ROLE_GIVE_BOOK'),
+('l2', 'ROLE_RETURN_BOOK'),
+('l2', 'ROLE_GET_GIVEN_BOOKS'),
+('l2', 'ROLE_GET_RETURNED_BOOKS'),
+('l2', 'ROLE_GET_DELAYED_BOOKS');
+
 
 
 insert into translates

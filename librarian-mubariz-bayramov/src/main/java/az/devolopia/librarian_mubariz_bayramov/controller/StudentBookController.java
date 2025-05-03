@@ -34,7 +34,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/student-books")
 public class StudentBookController {
 	@Autowired
-	private LibrarianRepository librarianRepository;
+	private 
+	LibrarianRepository librarianRepository;
 	@Autowired
     private StudentBookService studentBookService;
     

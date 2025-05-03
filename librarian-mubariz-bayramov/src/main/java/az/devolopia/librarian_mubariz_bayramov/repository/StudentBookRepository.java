@@ -34,5 +34,11 @@ public interface StudentBookRepository extends JpaRepository<StudentBookEntity, 
 		        @Param("librarianCode") Integer librarianCode, 
 		        @Param("today") LocalDate today);
 
+	
+	
+
+	    @Query("SELECT sb FROM StudentBookEntity sb WHERE sb.returned = false AND sb.dueDate < CURRENT_DATE")
+	    List<StudentBookEntity> findOverdueBooks();
+	
 }
 

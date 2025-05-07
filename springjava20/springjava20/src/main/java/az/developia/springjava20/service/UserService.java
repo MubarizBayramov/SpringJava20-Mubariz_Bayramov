@@ -34,6 +34,8 @@ public class UserService {
 
 	@Autowired
 	private AuthorityService authorityService;
+	
+	
 
 	public void checkUsernameExists(String username) {
 		Optional<UserEntity> op = repository.findById(username);
@@ -43,6 +45,7 @@ public class UserService {
 
 	}
 
+	
 	public Integer addSeller(SellerAddRequest req) {
 
 		// check user name existence
@@ -88,6 +91,8 @@ public class UserService {
 		return username;
 	}
 
+	
+	
 	public Integer addCustomer(CustomerAddRequest req) {
 
 		// check user name existence

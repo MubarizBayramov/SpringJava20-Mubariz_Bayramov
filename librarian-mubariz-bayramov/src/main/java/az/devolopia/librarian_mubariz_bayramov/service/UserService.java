@@ -13,9 +13,7 @@ import az.devolopia.librarian_mubariz_bayramov.entity.UserEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.UserRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.LibrarianAddRequest;
-import az.devolopia.librarian_mubariz_bayramov.request.StudentAddRequest;
 import az.devolopia.librarian_mubariz_bayramov.util.Constants;
-import jakarta.validation.Valid;
 
 @Service
 @Transactional
@@ -36,8 +34,7 @@ public class UserService {
 	
 
 	public void checkUsernameExists(String username) {
-		Optional<UserEntity> op = repository.findById(username);
-		if (op.isPresent()) {
+		Optional<UserEntity> op = repository.findByUsername(username);		if (op.isPresent()) {
 			throw new MyException(Constants.USER_EXISTS_MESSAGE, null, "conflict");
 		}
 
@@ -61,34 +58,26 @@ public class UserService {
 
 		en.setPassword("{bcrypt}" + encoded);
 		en.setUserType("Librarian");
-	
-		repository.save(en);
-		
-		
+			repository.save(en);
 		// add Librarian authorities
 		authorityService.addLibrarianAuthorities(findUsername());
 		return id;
 	}
 
+	
+	
 	public UserEntity findByUsername(String username) {
-		Optional<UserEntity> op = repository.findById(username);
+		Optional<UserEntity> op = repository.findByUsername(username);
 		if (op.isPresent()) {
 			return op.get();
 		} else {
 			throw new MyException("Bu istifadeci adi tapilmadi", null, "not-found");
 
 		}
-
 	}
 
 	public String findUsername() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return username;
 	}
-
-	public Integer addStudent(@Valid StudentAddRequest req) {
-		
-		return null;
-	}
-
 }

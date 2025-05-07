@@ -1,0 +1,11 @@
+package az.developia.springjava20.config;
+
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+@EnableAspectJAutoProxy
+@Configuration
+public class AopConfig {
+
+}

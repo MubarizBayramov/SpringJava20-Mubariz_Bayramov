@@ -83,9 +83,11 @@ public class UserService {
 			throw new MyException("Bu istifadeci adi tapilmadi", null, "not-found");
 
 		}
+		
 
 	}
-
+	
+	
 	public String findUsername() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return username;
@@ -121,5 +123,5 @@ public class UserService {
 		authorityService.addCustomerAuthorities(username);
 		return id;
 	}
-
+	
 }

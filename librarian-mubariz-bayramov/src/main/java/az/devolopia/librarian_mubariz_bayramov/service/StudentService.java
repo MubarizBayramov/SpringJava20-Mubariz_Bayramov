@@ -36,6 +36,7 @@ public class StudentService {
 
         StudentEntity student = mapper.map(req, StudentEntity.class);
         studentRepository.save(student);
+        
     }
 
     // Delete student by ID

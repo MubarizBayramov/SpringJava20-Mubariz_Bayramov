@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import az.devolopia.librarian_mubariz_bayramov.entity.LibrarianEntity;
+import az.devolopia.librarian_mubariz_bayramov.entity.StudentBookEntity;
 import az.devolopia.librarian_mubariz_bayramov.exception.MyException;
 import az.devolopia.librarian_mubariz_bayramov.repository.LibrarianRepository;
 import az.devolopia.librarian_mubariz_bayramov.request.GiveBookRequest;
@@ -90,5 +91,11 @@ public class StudentBookController {
             throw new MyException("Bu əməliyyata icazəniz yoxdur!", null, "Authorization");
         }
         return ResponseEntity.ok(studentBookService.getDelayedBooks(librarianCode));
+    }
+    
+ // Tələbənin götürdüyü kitabları görmək üçün API
+    @GetMapping("/{studentId}/books")
+    public List<StudentBookEntity> getBooksByStudentId(@PathVariable Integer studentId) {
+        return studentBookService.getBooksByStudentId(studentId);
     }
 }

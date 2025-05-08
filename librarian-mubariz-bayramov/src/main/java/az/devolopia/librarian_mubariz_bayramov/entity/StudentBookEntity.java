@@ -31,4 +31,5 @@ public class StudentBookEntity {
     private LocalDate dueDate;
 
     private boolean returned;
+    private boolean isReturned;
 }

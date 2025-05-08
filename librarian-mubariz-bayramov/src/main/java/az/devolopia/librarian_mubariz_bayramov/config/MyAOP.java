@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class MyAOP {
 
-	@Before(value = "execution(public * az.devolopia.librarian_mubariz_bayramov.service.BookService.*(..))")
+	@Before("execution(public * az.devolopia.librarian_mubariz_bayramov.service.BookService.*(..))")
 	public void doIt() {
 		System.out.println("salam aop");
 	}

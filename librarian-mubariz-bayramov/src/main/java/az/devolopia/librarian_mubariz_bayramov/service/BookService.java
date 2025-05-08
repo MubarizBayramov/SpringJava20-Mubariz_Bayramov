@@ -54,9 +54,10 @@ public class BookService {
 		BookAddResponse resp = new BookAddResponse();
 		resp.setId(en.getId());
 		return resp;
-
+		
 	}
 
+	
 	public BookListResponse findAllSearch(String query, Double minPrice, Double maxPrice, String author) {
 	    String username = userService.findUsername();
 	    UserEntity operator = userService.findByUsername(username);
@@ -109,6 +110,7 @@ public class BookService {
 			} else {
 				throw new MyException("başqasının kitabıdır", null, "forbidden");
 			}
+			
 			
 			
 			

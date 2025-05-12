@@ -1,4 +1,3 @@
-
 package az.developia.springjava20.entity;
 
 import jakarta.persistence.Entity;
@@ -10,20 +9,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-
 @Entity
-@Table(name = "authority_list")
-public class AuthorityListEntity {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "roles")
+public class RoleEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
-	private String authority;
-
-	private Integer seller;
-
-	private Integer customer;
+	private String name;
 }

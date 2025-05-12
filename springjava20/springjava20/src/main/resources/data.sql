@@ -1,27 +1,24 @@
+INSERT INTO roles (name,seller,customer) VALUES 
+( 'ROLE_ADD_BOOK',1,0),( 'ROLE_DELETE_BOOK',1,0),( 'ROLE_GET_BOOK',1,0),( 'ROLE_UPDATE_BOOK',1,0),( 'ROLE_SEARCH_BOOK',1,0);
 
-insert into authority_list
-( authority,seller,customer) values
-('ROLE_ADD_BOOK',1,0),
-('ROLE_DELETE_BOOK',1,0),
-('ROLE_GET_BOOK',1,0),
-('ROLE_UPDATE_BOOK',1,0),
-('ROLE_SEARCH_BOOK',1,0) ;
 
 insert into users
 (username,password,enabled,user_id,user_type) values
-('s1','{noop}1',1,1,'seller'),
-('s2','{noop}1',1,2,'seller');
+('s1','$2a$12$AXXj9t.V73x5iCEmRD0X..AboDocEu7aK12Xaf1dbNmN137CvcDZG',1,1,'seller'),
+('s2','$2a$12$AXXj9t.V73x5iCEmRD0X..AboDocEu7aK12Xaf1dbNmN137CvcDZG',1,2,'seller');
 
 insert into sellers
 (name,surname,phone,birthday) values
 ('Abbas','Abbaszade','099','2021-02-05'),
 ('Emin','Eliyev','098','2020-02-05');
 
-insert into authorities (username,authority)
-select 's1',authority from authority_list where seller=1;
+insert into user_roles (user_id,role_id)
+select 1,id from roles where seller=1;
 
-insert into authorities (username,authority)
-select 's2',authority from authority_list where seller=1;
+insert into user_roles (user_id,role_id)
+select 2,id from roles where seller=1;
+
+ 
 
 insert into books
 (name,description,price,author,color,page_count,quantity,weight,publish_date,seller_code,category_id) values
@@ -45,3 +42,5 @@ drop table sellers_book_count;
 create view sellers_book_count as
 (select s.id,s.name,count(b.name) as count from sellers s inner join books b
 on s.id=b.seller_code group by s.name)
+
+ 

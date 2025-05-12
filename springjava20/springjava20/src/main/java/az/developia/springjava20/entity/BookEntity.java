@@ -1,3 +1,4 @@
+
 package az.developia.springjava20.entity;
 
 import java.math.BigDecimal;

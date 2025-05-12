@@ -145,8 +145,34 @@ public class BookService {
 
 	}
 
+	public BookService() {
 
-	
+		System.out.println("BookService def kons");
+
+		try (BufferedReader reader = new BufferedReader(new FileReader("files/input.txt"))) {
+
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public BookService(int g) {
+		System.out.println("BookService int kons");
+	}
+
+	public void metod1() throws FileNotFoundException {
+		int a = 3;
+		int b = 0;
+		BufferedReader br = new BufferedReader(new FileReader(""));
+		System.out.println(a / b);
+
+	}
 
 	public BookListResponse findPagination(Integer begin, Integer length) {
 		BookListResponse s = new BookListResponse();

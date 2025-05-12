@@ -1,4 +1,3 @@
-
 package az.developia.springjava20.response;
 
 import lombok.AllArgsConstructor;

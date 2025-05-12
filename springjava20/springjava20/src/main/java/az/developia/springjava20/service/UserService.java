@@ -1,3 +1,4 @@
+
 package az.developia.springjava20.service;
 
 import java.util.Optional;
@@ -34,18 +35,16 @@ public class UserService {
 
 	@Autowired
 	private AuthorityService authorityService;
-	
-	
 
 	public void checkUsernameExists(String username) {
-		Optional<UserEntity> op = repository.findById(username);
+
+		Optional<UserEntity> op = repository.findByUsername(username);
 		if (op.isPresent()) {
 			throw new MyException(Constants.USER_EXISTS_MESSAGE, null, "conflict");
 		}
 
 	}
 
-	
 	public Integer addSeller(SellerAddRequest req) {
 
 		// check user name existence
@@ -76,25 +75,21 @@ public class UserService {
 	}
 
 	public UserEntity findByUsername(String username) {
-		Optional<UserEntity> op = repository.findById(username);
+		Optional<UserEntity> op = repository.findByUsername(username);
 		if (op.isPresent()) {
 			return op.get();
 		} else {
 			throw new MyException("Bu istifadeci adi tapilmadi", null, "not-found");
 
 		}
-		
 
 	}
-	
-	
+
 	public String findUsername() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return username;
 	}
 
-	
-	
 	public Integer addCustomer(CustomerAddRequest req) {
 
 		// check user name existence
@@ -123,5 +118,5 @@ public class UserService {
 		authorityService.addCustomerAuthorities(username);
 		return id;
 	}
-	
+
 }

@@ -1,3 +1,4 @@
+
 package az.developia.springjava20.util;
 
 import java.util.List;

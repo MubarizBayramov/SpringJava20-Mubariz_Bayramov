@@ -1,7 +1,11 @@
+
 package az.developia.springjava20.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
@@ -43,6 +47,7 @@ public class BookAddRequest {
 	private Double weight;
 
 	@Past(message = "nese")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate publishDate;
 
 }

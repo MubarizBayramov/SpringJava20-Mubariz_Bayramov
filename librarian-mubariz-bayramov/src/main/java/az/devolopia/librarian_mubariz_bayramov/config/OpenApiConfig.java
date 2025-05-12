@@ -1,6 +1,6 @@
 package az.devolopia.librarian_mubariz_bayramov.config;
 
-import io.swagger.v3.oas.models.info.Info; 
+import javax.sound.midi.MidiDevice.Info;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -33,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/student-books")
+@RequestMapping("/student-books")
 public class StudentBookController {
 	@Autowired
 	private 
@@ -94,6 +94,7 @@ public class StudentBookController {
     }
     
  // Tələbənin götürdüyü kitabları görmək üçün API
+    
     @GetMapping("/{studentId}/books")
     public List<StudentBookEntity> getBooksByStudentId(@PathVariable Integer studentId) {
         return studentBookService.getBooksByStudentId(studentId);

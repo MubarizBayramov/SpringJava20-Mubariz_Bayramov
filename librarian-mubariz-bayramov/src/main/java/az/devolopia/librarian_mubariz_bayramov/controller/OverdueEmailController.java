@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import az.devolopia.librarian_mubariz_bayramov.service.OverdueEmailService;
 
 @RestController
-@RequestMapping("/api/emails")
+@RequestMapping("/emails")
 public class OverdueEmailController {
 
     private final OverdueEmailService overdueEmailService;

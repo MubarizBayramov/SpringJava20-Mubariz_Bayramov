@@ -151,7 +151,9 @@ public class StudentBookService {
             return response;
         }).toList();
     }
+    
  // Tələbənin götürdüyü kitabları tapır
+    
     public List<StudentBookEntity> getBooksByStudentId(Integer studentId) {
         return studentBookRepository.findByStudentIdAndIsReturnedFalse(studentId);
     }

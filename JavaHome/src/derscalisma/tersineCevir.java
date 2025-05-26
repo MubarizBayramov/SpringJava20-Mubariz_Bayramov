@@ -8,7 +8,6 @@ public class tersineCevir {
 
 	        System.out.print("Bir söz daxil edin: ");
 	        String soz = scanner.nextLine();
-
 	        String tersSoz = "";
 
 	        for (int i = soz.length() - 1; i >= 0; i--) {

@@ -1,14 +1,11 @@
 package az.devolopia.tourist.entity;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,31 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "objects")
-@Builder
-public class ObjectEntity {
-	
+@Table(name = "translates")
+public class TranslateEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Integer id;
-
-    private String name;
-
-    private String description;
-
-    private BigDecimal price;
-
-    private String address;
-
-    private Integer roomCount;
-
-    private Double area;
-
-    private Integer floor;
-
-    private Integer lessorCode;
-
-    private Integer categoryId;
+	private String language;
+	private String word;
+	private String translate;
 }
-

@@ -1,5 +1,11 @@
 package az.devolopia.tourist.response;
 
-public class AuthResponse {
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
+public class AuthResponse {
+	private String jwt;
+	private String refreshToken;
 }

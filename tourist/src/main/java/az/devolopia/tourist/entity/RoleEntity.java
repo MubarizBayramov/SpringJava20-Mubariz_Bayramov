@@ -1,6 +1,5 @@
 package az.devolopia.tourist.entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,20 +9,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-
 @Entity
-@Table(name = "authority_list")
-public class AuthorityListEntity {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "roles")
+public class RoleEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
-	private String authority;
+	private String name;
 
 	private Integer lessor;
 
 	private Integer tourist;
+
 }
+
+

@@ -1,5 +1,11 @@
 package az.devolopia.tourist.repository;
 
-public interface TouristRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import az.devolopia.tourist.entity.TouristEntity;
+
+
+
+public interface TouristRepository extends JpaRepository<TouristEntity, Integer> {
 
 }

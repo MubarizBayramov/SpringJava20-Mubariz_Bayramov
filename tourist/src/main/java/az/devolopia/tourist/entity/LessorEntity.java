@@ -1,6 +1,6 @@
 package az.devolopia.tourist.entity;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,31 +16,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "objects")
-@Builder
-public class ObjectEntity {
+@Table(name = "lessors")
+public class LessorEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Integer id;
 
-    private String name;
+	private String name;
 
-    private String description;
+	private String surname;
 
-    private BigDecimal price;
+	private String phone;
 
-    private String address;
+	private LocalDate birthday;
 
-    private Integer roomCount;
-
-    private Double area;
-
-    private Integer floor;
-
-    private Integer lessorCode;
-
-    private Integer categoryId;
+	private String email;
 }
+
 

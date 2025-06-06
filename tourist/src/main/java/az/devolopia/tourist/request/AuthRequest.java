@@ -1,5 +1,10 @@
 package az.devolopia.tourist.request;
 
-public class AuthRequest {
 
+import lombok.Data;
+
+@Data
+public class AuthRequest {
+	private String username;
+	private String password;
 }

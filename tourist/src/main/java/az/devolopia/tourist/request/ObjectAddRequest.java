@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -36,16 +36,7 @@ public class ObjectAddRequest  {
 	@Digits(integer = 4, fraction = 2, message = "qiymet 4 tam 2 kesr olar")
 	private BigDecimal price;
 
-	@NotNull
-	private String author;
 
-	private String color;
-
-	private Integer pageCount;
-
-	private Integer quantity;
-
-	private Double weight;
 
 	@Past(message = "nese")
 	@JsonDeserialize(using = LocalDateDeserializer.class)

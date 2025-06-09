@@ -38,8 +38,6 @@ public class ObjectService {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private LessorRepository lessorRepository;
 
 	@Autowired
 	private MyConfig myConfig;
@@ -90,11 +88,11 @@ public class ObjectService {
 			if (operatorLessorCode == objectLessorCode) {
 				repository.deleteById(id);
 			} else {
-				throw new MyException("basqasinin kitabini sile bilmezsen", null, "forbidden");
+				throw new MyException("You cannot delete someone else’s property", null, "forbidden");
 			}
 
 		} else {
-			throw new MyException("kitab taplmadi id=" + id, null, "id-not-found");
+			throw new MyException("Object not found + id=" + id, null, "id-not-found");
 		}
 	}
 	
@@ -106,7 +104,7 @@ public class ObjectService {
 		if (o.isPresent()) {
 			en = o.get();
 		} else {
-			throw new MyException("kitab taplmadi id=" + id, null, "id-not-found");
+			throw new MyException("Object not found + id=" + id, null, "id-not-found");
 		}
 		ObjectSingleResponse resp = new ObjectSingleResponse();
 		mapper.map(en, resp);
@@ -126,7 +124,7 @@ public class ObjectService {
 		Integer rowCountLimit = myConfig.getRowCountLimit();
 		System.out.println(rowCountLimit);
 		if (count > rowCountLimit) {
-			throw new MyException("axtraisi deiqlqesdirin, tapilan melumat sayisi = " + count + ", maksimum "
+			throw new MyException("Refine your search. Number of records= " + count + ", maksimum "
 					+ rowCountLimit + " ola biler", null, "data-too-long");
 		}
 		List<ObjectEntity> filtered = repository.findMyObjectsSearchFilter(operatorLessorCode, r.getName(), r.getId(),
@@ -159,36 +157,11 @@ public class ObjectService {
 		if (lessorCode == operatorLessorCode) {
 			repository.save(en);
 		} else {
-			throw new MyException("başqasının obyektini redakte ede bilməzsən", null, "forbidden");
+			throw new MyException("You cannot edit someone else’s property", null, "forbidden");
 		}
 
 	}
 	
-	
-	
-	
-	
-	
-	
-	/////////////////////////////////////////////////////
-	
-	
-
-	public ObjectListResponse findPagination(Integer begin, Integer length) {
-		ObjectListResponse s = new ObjectListResponse();
-		List<ObjectEntity> filtered = repository.findPagination(begin, length);
-		List<ObjectSingleResponse> list = new ArrayList<ObjectSingleResponse>();
-		for (ObjectEntity en : filtered) {
-			ObjectSingleResponse se = new ObjectSingleResponse();
-			mapper.map(en, se);
-			list.add(se);
-		}
-		s.setObjects(list);
-		return s;
-	}
-
-	
-
 	
 	
 	public ObjectListResponse findAllSearchFilterForTourist(ObjectFilterRequestForTourist r) {
@@ -200,7 +173,7 @@ public class ObjectService {
 		ObjectListResponse s = new ObjectListResponse();
 		Integer length = r.getLength();
 		if (length > myConfig.getRowCountLimit()) {
-			throw new MyException("melumat limiti asildi", null, "data-too-long");
+			throw new MyException("Limit exceeded", null, "data-too-long");
 		}
 		List<ObjectEntity> entities = repository.searchFilterForTourist(r.getName(), category, r.getBegin(),
 				r.getLength());

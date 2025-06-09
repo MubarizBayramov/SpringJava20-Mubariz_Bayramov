@@ -54,8 +54,6 @@ public class ObjectController {
 	    return ResponseEntity.ok(resp);
 	}
 
-
-		
 	
    
 	@DeleteMapping(path = "/{id}")

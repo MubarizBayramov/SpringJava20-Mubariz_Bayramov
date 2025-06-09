@@ -95,8 +95,9 @@ public class UserService {
 		String username = req.getUsername();
 		checkUsernameExists(username);
 
-		// add customer
-		Integer id = touristService.add(req);
+		// add tourist
+	
+		Integer id = touristService.addTourist(req);
 
 		// add users
 		UserEntity en = new UserEntity();
@@ -113,7 +114,7 @@ public class UserService {
 		}
 		repository.save(en);
 
-		// add seller authorities
+		// add lessor authorities
 		authorityService.addTouristAuthorities(username);
 		return id;
 	}

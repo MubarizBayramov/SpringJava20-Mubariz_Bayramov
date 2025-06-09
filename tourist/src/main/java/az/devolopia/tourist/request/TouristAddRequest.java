@@ -2,21 +2,33 @@ package az.devolopia.tourist.request;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
 public class TouristAddRequest {
-	private String name;
-	private String surname;
-	private String email;
-	private String username;
-	private String password;
-	private String phone;
+    @NotEmpty(message = "Name is required")
+    private String name;
 
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate birthday;
+    @NotEmpty(message = "Surname is required")
+    private String surname;
+
+    @Email(message = "Invalid email")
+    private String email;
+
+    @NotEmpty(message = "Phone is required")
+    private String phone;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
+    
+    @NotEmpty(message = "Username is required")
+    private String username;
+
+    @NotEmpty(message = "Password is required")
+    private String password;
 
 }

@@ -1,8 +1,6 @@
 package az.devolopia.tourist.request;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -13,29 +11,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ObjectUpdateRequest {
-	
-	@NotNull
-	@Positive
-	private Integer id;
 
-	private String name;
+    @NotNull
+    @Positive
+    private Integer id;               
 
-	private String description;
+    private String name;           
 
-	private BigDecimal price;
+    private String description;      
 
-	private String author;
+    private BigDecimal price;        
 
-	private String color;
+    private String address;          
 
-	private Integer pageCount;
+    private Integer roomCount;       
 
-	private Integer quantity;
+    private Double area;           
 
-	private Double weight;
+    private Integer floor;          
 
-	private String email;
+    private Integer categoryId;     
 
-	private LocalDate publishDate;
-
+    private Double pricePerNight;  
+    
 }

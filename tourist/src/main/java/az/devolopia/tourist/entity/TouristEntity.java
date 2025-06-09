@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "tourists")
 public class TouristEntity {

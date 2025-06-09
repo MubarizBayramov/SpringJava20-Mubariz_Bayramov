@@ -29,11 +29,8 @@ public class UserEntity {
 	@Column(unique = true)
 	private String username;
 	private String password;
-
 	private Integer userId;
-
 	private String userType;
-
 	private Boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER)

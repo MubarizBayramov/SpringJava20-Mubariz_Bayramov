@@ -12,8 +12,8 @@ INSERT INTO roles (name, lessor, tourist) VALUES
 
 insert into users
 (username,password,enabled,user_id,user_type) values
-('l1','$2a$12$AXXj9erftgy76',1,1,'lessor'),
-('l2','$2a$12$AXXj9t.V7rtghjfd',1,2,'lessor');
+('l1','123',1,1,'lessor'),
+('l2','1234',1,2,'lessor');
 
 
 insert into lessors

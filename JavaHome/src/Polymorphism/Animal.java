@@ -20,3 +20,6 @@ public class Animal {  // Çoxformalıq bir metodu fərqli yollarla istifadə et
 	        System.out.println("Miyav!");
 	    }
 	}
+
+	
+	

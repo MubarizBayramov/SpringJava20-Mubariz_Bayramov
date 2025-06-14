@@ -11,11 +11,11 @@ import az.devolopia.tourist.config.MyConfig;
 import az.devolopia.tourist.entity.ObjectEntity;
 import az.devolopia.tourist.entity.UserEntity;
 import az.devolopia.tourist.exception.MyException;
-import az.devolopia.tourist.repository.LessorRepository;
+
 import az.devolopia.tourist.repository.ObjectRepository;
 import az.devolopia.tourist.request.ObjectAddRequest;
 import az.devolopia.tourist.request.ObjectFilterRequest;
-import az.devolopia.tourist.request.ObjectFilterRequestForTourist;
+
 import az.devolopia.tourist.request.ObjectUpdateRequest;
 import az.devolopia.tourist.response.ObjectAddResponse;
 import az.devolopia.tourist.response.ObjectListResponse;
@@ -164,31 +164,6 @@ public class ObjectService {
 	
 	
 	
-	public ObjectListResponse findAllSearchFilterForTourist(ObjectFilterRequestForTourist r) {
-		Integer categoryId = r.getCategoryId();
-		String category = "";
-		if (categoryId != 0) {
-			category = String.valueOf(categoryId);
-		}
-		ObjectListResponse s = new ObjectListResponse();
-		Integer length = r.getLength();
-		if (length > myConfig.getRowCountLimit()) {
-			throw new MyException("Limit exceeded", null, "data-too-long");
-		}
-		List<ObjectEntity> entities = repository.searchFilterForTourist(r.getName(), category, r.getBegin(),
-				r.getLength());
-		Long totalSize = repository.searchFilterCountForTourist(r.getName(), category);
-		List<ObjectSingleResponse> list = new ArrayList<ObjectSingleResponse>();
-		for (ObjectEntity en : entities) {
-			ObjectSingleResponse se = new ObjectSingleResponse();
-			mapper.map(en, se);
-			list.add(se);
-		}
-		s.setObjects(list);
-		s.setTotalSize(totalSize);
-		return s;
-	}
-
 	
 
 }

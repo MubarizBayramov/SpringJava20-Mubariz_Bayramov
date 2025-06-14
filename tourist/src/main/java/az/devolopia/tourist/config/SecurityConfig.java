@@ -32,19 +32,27 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-				.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers(HttpMethod.OPTIONS, "/**")
-						.permitAll().requestMatchers(HttpMethod.POST, "/apis/login").permitAll()
-						.requestMatchers("/h2-console/**").permitAll()
-						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-						.anyRequest().authenticated())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http
+			.csrf(csrf -> csrf.disable())
+			.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				.requestMatchers(HttpMethod.POST, "/apis/login").permitAll()
+				.requestMatchers(HttpMethod.POST, "/users/lessor").permitAll()
+				.requestMatchers(HttpMethod.POST, "/users/tourist").permitAll()
+				.requestMatchers("/h2-console/**").permitAll()
+				.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+				.anyRequest().authenticated())
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		// Add JWT filter before the default username/password filter
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-		http.headers().frameOptions().disable();
+
+		http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
+
 		return http.build();
 	}
+
+
+
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -53,7 +61,13 @@ public class SecurityConfig {
 
 	@Bean
 	public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-		return http.getSharedObject(AuthenticationManagerBuilder.class).userDetailsService(userDetailsService)
-				.passwordEncoder(passwordEncoder()).and().build();
+	    AuthenticationManagerBuilder authBuilder = 
+	        http.getSharedObject(AuthenticationManagerBuilder.class);
+
+	    authBuilder.userDetailsService(userDetailsService)
+	               .passwordEncoder(passwordEncoder());
+
+	    return authBuilder.build();  
 	}
+
 }

@@ -11,11 +11,11 @@ import jakarta.transaction.Transactional;
 public interface AuthorityRepository extends JpaRepository<AuthorityEntity, Integer> {
 
 	@Modifying
-	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where seller=1", nativeQuery = true)
+	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where lessor=1", nativeQuery = true)
 	public void addLessorAuthorities(String username);
 
 	@Modifying
-	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where customer=1", nativeQuery = true)
+	@Query(value = "insert into authorities (username,authority) select ?1,authority from authority_list where tourist=1", nativeQuery = true)
 	public void addTouristAuthorities(String username);
 
 }

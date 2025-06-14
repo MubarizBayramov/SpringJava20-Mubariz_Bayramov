@@ -37,7 +37,6 @@ public class ObjectEntity {
 
     private String address;
 
-
     private Double area;
 
     private Integer floor;

@@ -64,8 +64,8 @@ public class AuthController {
 
 		if (refreshTokenUtil.validateToken(refreshToken, userDetails)) {
 			final String newAccessToken = jwtUtil.generateToken(userDetails);
-			return ResponseEntity.ok(new AuthResponse(newAccessToken, refreshToken)); // Keep the same refresh token
-		} else {
+			return ResponseEntity.ok(new AuthResponse(newAccessToken, refreshToken));
+			} else {
 			return ResponseEntity.status(403).body("Invalid refresh token");
 		}
 	}

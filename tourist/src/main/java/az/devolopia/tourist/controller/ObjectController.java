@@ -32,11 +32,12 @@ public class ObjectController {
 
 	@Autowired
 	private ObjectService service;
+	
 
 	
 
 	@PostMapping
-	@PreAuthorize(value = "hasAuthority('ROLE_ADD_OBJECT')")
+	@PreAuthorize(value = "hasAuthority('ROLE_ADD_OBJECT')") //Yeni bir obyekt əlavə edir
 	public ResponseEntity<ObjectAddResponse> add(@Valid @RequestBody ObjectAddRequest req, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
@@ -47,7 +48,7 @@ public class ObjectController {
 	}
 	
 
-	@GetMapping(path = "/search")
+	@GetMapping(path = "/search") // Sistemə daxil edilmiş obyektləri ad, ünvan və ya digər açar sözlərlə axtarır.
 	@PreAuthorize("hasAuthority('ROLE_SEARCH_OBJECT')")
 	public ResponseEntity<ObjectListResponse> findAllSearch(@RequestParam(name = "query") String query) {
 	    ObjectListResponse resp = service.findAllSearch(query);
@@ -56,7 +57,7 @@ public class ObjectController {
 
 	
    
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "/{id}") //Mövcud bir obyektin sistemdən silinməsi.
 	@PreAuthorize(value = "hasAuthority('ROLE_DELETE_OBJECT')")
 	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
 		service.deleteById(id);
@@ -65,14 +66,14 @@ public class ObjectController {
 	
 	
 
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}") //Verilən id-yə əsasən obyektin tam detalları qaytarılır.
 	@PreAuthorize(value = "hasAuthority('ROLE_GET_OBJECT')")
 	public ObjectSingleResponse findById(@PathVariable Integer id) {
 		return service.findById(id);
 	}
 	
 	
-	@PostMapping(path = "/filter")
+	@PostMapping(path = "/filter") // İrəli səviyyəli axtarış 
 	@PreAuthorize(value = "hasAuthority('ROLE_SEARCH_OBJECT')")
 	public ResponseEntity<ObjectListResponse> findAllSearchFilter(@RequestBody ObjectFilterRequest req) {
 		ObjectListResponse resp = service.findAllSearchFilter(req);
@@ -83,7 +84,7 @@ public class ObjectController {
 	
 
 	@PutMapping
-	@PreAuthorize("hasAuthority('ROLE_EDIT_OBJECT')")
+	@PreAuthorize("hasAuthority('ROLE_EDIT_OBJECT')") // Mövcud obyektin məlumatlarını redaktə edir.
 	public ResponseEntity<?> update(@Valid @RequestBody ObjectUpdateRequest u, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);

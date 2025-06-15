@@ -47,7 +47,7 @@ public class TouristController {
     }
 
    
-    @PostMapping("/book")
+    @PostMapping("/book") // Turist seçdiyi obyekti istədiyi tarixlər üçün bron edir.
     public ResponseEntity<BookingResponse> bookObject(@Valid @RequestBody BookingRequest req, BindingResult br) {
         if (br.hasErrors()) {
             throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
@@ -57,7 +57,7 @@ public class TouristController {
     }
 
    
-    @PostMapping("/register")
+    @PostMapping("/register") // Yeni turistin qeydiyyatını təmin edir
     public ResponseEntity<TouristAddResponse> register(@Valid @RequestBody TouristAddRequest req, BindingResult br) {
         if (br.hasErrors()) {
             throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
@@ -69,7 +69,7 @@ public class TouristController {
     }
 
    
-    @PostMapping("/rate")
+    @PostMapping("/rate") //Turist istirahətini tamamladıqdan sonra obyektə 10 ballıq sistem üzrə qiymət verir.
     public ResponseEntity<Void> rateObject(@Valid @RequestBody RatingRequest req, BindingResult br) {
         if (br.hasErrors()) {
             throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
@@ -80,7 +80,7 @@ public class TouristController {
 
    
     
-    @PostMapping("/comment")
+    @PostMapping("/comment") // Turist qaldığı obyektə rəy (şərh) yazır.
     public ResponseEntity<Void> commentOnObject(@Valid @RequestBody CommentRequest req, BindingResult br) {
         if (br.hasErrors()) {
             throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);

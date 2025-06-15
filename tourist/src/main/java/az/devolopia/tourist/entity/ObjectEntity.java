@@ -1,6 +1,7 @@
 package az.devolopia.tourist.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,8 +41,13 @@ public class ObjectEntity {
     private Double area;
 
     private Integer floor;
-    
-    
+
+    @Column(name = "page_count")
+    private Integer pageCount;
+
+    @Column(name = "publish_date")
+    private LocalDate publishDate;
+
     @Column(name = "room_count")
     private Integer roomCount;
 
@@ -54,14 +60,8 @@ public class ObjectEntity {
     @Column(name = "price_per_night")
     private Double pricePerNight;
 
-    
-   
-
-
-
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewEntity> reviews;
-
 
     public Double getAverageRating() {
         if (reviews == null || reviews.isEmpty()) {
@@ -73,7 +73,6 @@ public class ObjectEntity {
                 .orElse(0.0);
     }
 
- 
     public List<String> getComments() {
         if (reviews == null) return List.of();
         return reviews.stream()

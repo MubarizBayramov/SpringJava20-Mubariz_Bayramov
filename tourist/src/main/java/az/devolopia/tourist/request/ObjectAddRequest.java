@@ -38,7 +38,7 @@ public class ObjectAddRequest  {
 
 
 
-	@Past(message = "nese")
+	@Past(message = "something")
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate publishDate;
 

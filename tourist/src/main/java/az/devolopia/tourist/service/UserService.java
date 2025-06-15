@@ -96,8 +96,7 @@ public class UserService {
 		checkUsernameExists(username);
 
 		// add tourist
-	
-		Integer id = touristService.addTourist(req);
+			Integer id = touristService.addTourist(req);
 
 		// add users
 		UserEntity en = new UserEntity();
@@ -105,9 +104,8 @@ public class UserService {
 		en.setEnabled(true);
 		String pass = en.getPassword();
 		String encoded = new BCryptPasswordEncoder().encode(pass);
-
 		en.setPassword("{bcrypt}" + encoded);
-		en.setUserType("customer");
+		en.setUserType("tourist");
 		en.setUserId(id);
 		if (en.getUserId() != 1111) {
 			throw new MyException("nese oldu", null, "");

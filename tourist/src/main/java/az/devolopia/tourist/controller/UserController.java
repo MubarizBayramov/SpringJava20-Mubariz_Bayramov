@@ -28,7 +28,7 @@ public class UserController {
 
 	
 	
-	@PostMapping(path = "/lessor")
+	@PostMapping(path = "/lessor") //Kirayə verən şəxsin (lessor) sistemə əlavə olunması
 	public ResponseEntity<LessorAddResponse> addLessor(@Valid @RequestBody LessorAddRequest req, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
@@ -41,7 +41,7 @@ public class UserController {
 	
 	
 	
-	@PostMapping(path = "/tourist")
+	@PostMapping(path = "/tourist") // Turist istifadəçinin sistemə əlavə olunması 
 	public ResponseEntity<TouristAddResponse> addTourist(@Valid @RequestBody TouristAddRequest req,
 			BindingResult br) {
 		if (br.hasErrors()) {

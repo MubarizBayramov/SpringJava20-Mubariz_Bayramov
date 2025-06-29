@@ -16,7 +16,6 @@ import az.devolopia.tourist.entity.RoleEntity;
 import az.devolopia.tourist.entity.UserEntity;
 import az.devolopia.tourist.repository.UserRepository;
 
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

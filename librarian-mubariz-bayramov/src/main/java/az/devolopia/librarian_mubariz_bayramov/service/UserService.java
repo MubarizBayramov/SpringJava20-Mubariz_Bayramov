@@ -59,6 +59,7 @@ public class UserService {
 		en.setPassword("{bcrypt}" + encoded);
 		en.setUserType("Librarian");
 			repository.save(en);
+			
 		// add Librarian authorities
 		authorityService.addLibrarianAuthorities(findUsername());
 		return id;

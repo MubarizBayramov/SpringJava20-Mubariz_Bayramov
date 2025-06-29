@@ -45,6 +45,7 @@ public class ObjectController {
 		ObjectAddResponse resp = service.add(req);
 		return new ResponseEntity<ObjectAddResponse>(resp, HttpStatus.CREATED);
 	}
+		
 	}
 	
 
@@ -55,6 +56,7 @@ public class ObjectController {
 	    return ResponseEntity.ok(resp);
 	}
 
+	
 	
    
 	@DeleteMapping(path = "/{id}") //Mövcud bir obyektin sistemdən silinməsi.

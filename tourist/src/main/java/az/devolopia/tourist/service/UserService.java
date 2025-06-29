@@ -94,10 +94,8 @@ public class UserService {
 		// check user name existence
 		String username = req.getUsername();
 		checkUsernameExists(username);
-
 		// add tourist
 			Integer id = touristService.addTourist(req);
-
 		// add users
 		UserEntity en = new UserEntity();
 		mapper.map(req, en);
@@ -111,10 +109,10 @@ public class UserService {
 			throw new MyException("nese oldu", null, "");
 		}
 		repository.save(en);
-
-		// add lessor authorities
+		// add Tourist authorities
 		authorityService.addTouristAuthorities(username);
 		return id;
 	}
 
+	
 }

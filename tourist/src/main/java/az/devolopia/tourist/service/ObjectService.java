@@ -98,7 +98,7 @@ public class ObjectService {
 	
 	
 
-	public ObjectSingleResponse findById(Integer id) {// 7
+	public ObjectSingleResponse findById(Integer id) {
 		Optional<ObjectEntity> o = repository.findById(id);
 		ObjectEntity en = null;
 		if (o.isPresent()) {
@@ -162,8 +162,6 @@ public class ObjectService {
 
 	}
 	
-	
-	
-	
+
 
 }

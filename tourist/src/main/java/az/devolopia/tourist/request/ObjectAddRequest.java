@@ -23,23 +23,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ObjectAddRequest  {
 
+    @Size(min = 2, max = 50, message = "2-50 simvol aralığında olmalıdır!")
+    private String name;
 
-	@Size(min = 2, message = "Minimum 2 simvol olmalıdır!")
-	@Size(max = 50, message = "Maksimum 50 simvol olmalıdır!")
-	private String name;
+    @NotBlank(message = "Təsvir boş olmamalıdır!")
+    private String description;
 
-	@NotBlank(message = "Boş qoymaq olmaz!")
-	private String description;
+    @Min(value = 0)
+    @Max(value = 1000)
+    @Digits(integer = 4, fraction = 2)
+    private BigDecimal price;
 
-	@Min(value = 0, message = "qiymet minimum 50 ola biler")
-	@Max(value = 1000, message = "qiymet maksimum 1000 ola biler")
-	@Digits(integer = 4, fraction = 2, message = "qiymet 4 tam 2 kesr olar")
-	private BigDecimal price;
+    @Past(message = "Keçmiş tarix olmalıdır")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate publishDate;
 
+    @Size(max = 100)
+    private String address;
 
+    private Double area;
 
-	@Past(message = "something")
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate publishDate;
+    private Integer floor;
 
+ 
+    private Integer roomCount;
+
+    private Integer lessorCode;
+
+    private Integer categoryId;
+
+    private Double pricePerNight;
 }

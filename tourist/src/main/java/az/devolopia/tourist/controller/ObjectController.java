@@ -32,10 +32,8 @@ public class ObjectController {
 
 	@Autowired
 	private ObjectService service;
-	
 
 	
-
 	@PostMapping
 	@PreAuthorize(value = "hasAuthority('ROLE_ADD_OBJECT')") //Yeni bir obyekt əlavə edir
 	public ResponseEntity<ObjectAddResponse> add(@Valid @RequestBody ObjectAddRequest req, BindingResult br) {
@@ -94,6 +92,8 @@ public class ObjectController {
 		service.update(u);
 		return ResponseEntity.ok().build();
 	}
+	
+	
 		}
 
 

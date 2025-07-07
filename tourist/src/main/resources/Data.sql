@@ -1,24 +1,25 @@
 INSERT INTO roles (name, lessor, tourist) VALUES
-('ROLE_ADD_OBJECT', 1, 0),
-('ROLE_DELETE_OBJECT', 1, 0),
-('ROLE_GET_OBJECT', 1, 0),
-('ROLE_UPDATE_OBJECT', 1, 0),
-('ROLE_SEARCH_OBJECT', 1, 1),
-('ROLE_EDIT_OBJECT', 1, 0);
+( 'ROLE_ADD_OBJECT',1,0),( 'ROLE_DELETE_OBJECT',1,0),( 'ROLE_GET_OBJECT',1,0),( 'ROLE_UPDATE_OBJECT',1,0),( 'ROLE_SEARCH_OBJECT',1,1);
 
-INSERT INTO lessors (id, name, surname, phone, birthday, email) VALUES
-(1, 'Emil', 'Abbasli', '920', '1988-11-11', 'emil@mail.com'),
-(2, 'Orxan', 'Eliyev', '912', '1990-02-05', 'orxan@mail.com');
+insert into users
+(username,password,enabled,user_id,user_type) values
+('l1', '$2a$12$YwsKC9KDsJOcEOyjXcD5AuiMWx4FS5DiFSTXEOUOn/52lIGHGJT/W', 1, 1, 'lessor'),
+('l2', '$2a$12$mO48VtW61525hUVz.DfOR.teZnBxsZCWZE71JY5Extl9/TvKDv1bm', 1, 2, 'lessor');
 
-INSERT INTO users (id, username, password, enabled, user_id, user_type) VALUES
-(1, 'l1', '$2a$12$YwsKC9KDsJOcEOyjXcD5AuiMWx4FS5DiFSTXEOUOn/52lIGHGJT/W', true, 1, 'lessor'),
-(2, 'l2', '$2a$12$mO48VtW61525hUVz.DfOR.teZnBxsZCWZE71JY5Extl9/TvKDv1bm', true, 2, 'lessor');
+INSERT INTO lessors (name, surname, phone, birthday, email) VALUES
+('Emil', 'Abbasli', '920', '1988-11-11', 'emil@mail.com'),
+('Orxan', 'Eliyev', '912', '1990-02-05', 'orxan@mail.com');
 
-INSERT INTO user_roles (user_id, role_id)
-SELECT u.id, r.id FROM users u JOIN roles r ON r.lessor = 1 WHERE u.username = 'l1';
+INSERT INTO tourists (name, surname, phone, birthday, email) VALUES
+('Anar', 'Bayramov', '924', '1988-10-18', 'anar@mail.com'),
+('Elnur', 'Alxan', '915', '1990-06-08', 'elnur@mail.com');
 
 INSERT INTO user_roles (user_id, role_id)
-SELECT u.id, r.id FROM users u JOIN roles r ON r.lessor = 1 WHERE u.username = 'l2';
+select 1,id from roles where lessor=1;
+
+insert into user_roles (user_id,role_id)
+select 2,id from roles where lessor=1;
+
 
 INSERT INTO objects (name, description, price, address, room_count, area, floor, lessor_code, category_id, price_per_night) VALUES
 ('Sea View Villa', 'Denizə baxışlı lüks villa', 230, 'Bakı, Nərimanov', 5, 250, 2, 1, 1, 200),

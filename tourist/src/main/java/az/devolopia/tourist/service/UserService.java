@@ -49,29 +49,36 @@ public class UserService {
 
 	public Integer addlessor(LessorAddRequest req) {
 
-		// check user name existence
-		String username = req.getUsername();
-		checkUsernameExists(username);
+	    // check user name existence
+	    String username = req.getUsername();
+	    checkUsernameExists(username);
 
-		// add lessors
-		Integer id = lessorService.add(req);
+	    // add lessor and get its id
+	    Integer id = lessorService.add(req);
 
-		// add users
-		UserEntity en = new UserEntity();
-		mapper.map(req, en);
-		en.setEnabled(true);
-		String pass = en.getPassword();
-		String encoded = new BCryptPasswordEncoder().encode(pass);
-		en.setPassword("{bcrypt}" + encoded);
-		en.setUserType("lessor");
-		en.setUserId(id);
-		if (en.getUserId() != 1111) {
-			throw new MyException("nese oldu", null, "");
-		}
-		repository.save(en);
-				authorityService.addLessorAuthorities(username);
-		return id;
+	    // add user entity
+	    UserEntity en = new UserEntity();
+	    mapper.map(req, en);
+	    en.setEnabled(true);
+
+	    // şifrəni bcrypt ilə encode et (prefiks olmadan)
+	    String pass = en.getPassword();
+	    String encoded = new BCryptPasswordEncoder().encode(pass);
+	    en.setPassword(encoded);
+
+	    en.setUserType("lessor");
+	    en.setUserId(id);
+
+	    
+	    // save user
+	    repository.save(en);
+
+	    // add authorities
+	    authorityService.addLessorAuthorities(username);
+
+	    return id;
 	}
+
 
 	public UserEntity findByUsername(String username) {
 		Optional<UserEntity> op = repository.findByUsername(username);

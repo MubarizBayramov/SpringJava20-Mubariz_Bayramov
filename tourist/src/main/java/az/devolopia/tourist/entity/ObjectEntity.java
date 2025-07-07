@@ -42,8 +42,7 @@ public class ObjectEntity {
 
     private Integer floor;
 
-    @Column(name = "page_count")
-    private Integer pageCount;
+  
 
     @Column(name = "publish_date")
     private LocalDate publishDate;

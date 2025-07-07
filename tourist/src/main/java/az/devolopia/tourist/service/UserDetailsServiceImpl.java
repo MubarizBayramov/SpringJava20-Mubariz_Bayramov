@@ -19,19 +19,21 @@ import az.devolopia.tourist.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				mapRolesToAuthorities(user.getRoles()));
-	}
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                mapRolesToAuthorities(user.getRoles()));
+    }
 
-	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<RoleEntity> roles) {
-		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-	}
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<RoleEntity> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
+    }
 }

@@ -84,7 +84,7 @@ public class ObjectController {
 	
 
 	@PutMapping
-	@PreAuthorize("hasAuthority('ROLE_EDIT_OBJECT')") // Mövcud obyektin məlumatlarını redaktə edir.
+	@PreAuthorize("hasAuthority('ROLE_UPDATE_OBJECT')") // Mövcud obyektin məlumatlarını redaktə edir.
 	public ResponseEntity<?> update(@Valid @RequestBody ObjectUpdateRequest u, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new MyException(Constants.VALIDATION_MESSAGE, br, Constants.VALIDATION_TYPE);
